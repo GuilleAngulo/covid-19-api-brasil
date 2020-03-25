@@ -2,12 +2,34 @@ const puppeteer = require('puppeteer');
 const BASE_URL = 'http://plataforma.saude.gov.br/novocoronavirus/';
 const UPDATE_XPATH = '//*[@id="COVID-19-brazil"]/p/text()';
 
+const State = require('../models/State');
+
 
 
 function reverseDate(dateString) {
     return dateString.split('/').reverse().join('/');
 }
 
+function getTotals() {
+    State.aggregate(
+        [
+            { 
+                $group: {
+                    _id: null, 
+                    totalconfirmed:  { $sum: "$confirmed" },
+                    totaldeaths:   { $sum: "$deaths" },
+                    officialUpdated:  { $first: "$officialUpdated" },
+                }   
+            }
+        ],
+        (error, result) => {
+            console.log(result);
+        }
+    );
+    
+}
+
+getTotals();
 
 module.exports = {
 
@@ -43,7 +65,7 @@ module.exports = {
     },
 }
 
-scrape(BASE_URL);
+//scrape(BASE_URL);
 
 /*(() => {
     const dateJSON = "Dados atualizados em 18/03/2020 às 20:12";

@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000
 
 const regionRoutes = require('./app/routes/RegionRoutes');
 const stateRoutes = require('./app/routes/StateRoutes');
+const statsRoutes = require('./app/routes/StatsRoutes');
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use('/region', regionRoutes);
 app.use('/state', stateRoutes);
+app.use('/stats', statsRoutes);
 
 
 app.listen(port, () => {
