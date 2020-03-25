@@ -1,0 +1,6 @@
+::1 - - [24/Mar/2020:18:22:51 +0000] "PUT /state/rs HTTP/1.1" 401 30 "-" "insomnia/7.1.1"
+::1 - - [24/Mar/2020:18:23:22 +0000] "PUT /state/rs HTTP/1.1" 200 298 "-" "insomnia/7.1.1"
+::1 - - [24/Mar/2020:18:45:26 +0000] "PUT /state/rs HTTP/1.1" 401 26 "-" "insomnia/7.1.1"
+::1 - - [24/Mar/2020:18:45:39 +0000] "GET /state/ac HTTP/1.1" 200 298 "-" "insomnia/7.1.1"
+::1 - - [24/Mar/2020:19:13:21 +0000] "PUT /state/rs HTTP/1.1" 200 298 "-" "insomnia/7.1.1"
+::1 - - [24/Mar/2020:19:50:56 +0000] "GET /state/AC HTTP/1.1" 200 298 "-" "insomnia/7.1.1"
