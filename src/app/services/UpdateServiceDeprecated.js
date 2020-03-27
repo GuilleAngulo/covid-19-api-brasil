@@ -2,8 +2,8 @@ const State = require('../models/State');
 
 const puppeteer = require('puppeteer');
 const COMUNICATIONS_URL = 'https://www.saude.gov.br/noticias';
-const LINK_WORDS = ['Coronavírus: ', 'mortes', 'casos confirmados'];
-
+//const LINK_WORDS = ['Coronavírus: ', 'mortes', 'casos confirmados'];
+const LINK_WORDS = ['mortes', 'casos confirmados'];
 
     // Clean Searched Words
     function cleanText(linkText) {
@@ -30,7 +30,7 @@ const LINK_WORDS = ['Coronavírus: ', 'mortes', 'casos confirmados'];
             await page.waitForNavigation({waitUntil: 'load'});
             console.log("Current page:", page.url());
         } else {
-            throw new Error(`Link not found for words: ${textArray.map(text => text)}`);
+            throw new Error(`Link not found for words: ${textArray.map(text => text)}. Database up to date.`);
         }
     };
 

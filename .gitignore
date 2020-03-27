@@ -4,6 +4,8 @@
 **/node_modules
 **/config
 
+test.js
+
 /.pnp
 .pnp.js
 
