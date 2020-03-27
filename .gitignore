@@ -3,9 +3,8 @@
 # dependencies
 **/node_modules
 **/config
-
-test.js
-
+**/log
+**/test
 /.pnp
 .pnp.js
 
