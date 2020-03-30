@@ -1,9 +1,10 @@
 #  Brasil COVID-19 Cases API (Under Construction 🚧)
 
 ## Get State
-paths:
-  /state/{code}:
-    get:
+- PATH
+/state/:code:
+- METHOD
+GET
       summary: Get a state by code
       parameters:
         - in: path
