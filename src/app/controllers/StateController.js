@@ -17,8 +17,10 @@ module.exports = {
     },
     async find(req, res) {
         try {
-            //const state = await State.findById(req.params.stateId).populate(['region']);
             const state = await State.findById(req.params.stateId);
+
+            if (!state)
+                return res.status(400).json({ error: 'State ID not found.'});
 
             return res.status(200).send({ state });
 
@@ -30,6 +32,9 @@ module.exports = {
     async findByCode(req, res) {
         try {
             const state = await State.find({ code: req.params.code.toUpperCase() });
+
+            if (!state)
+                return res.status(404).json({ error: 'State code not found.'});
 
             return res.status(200).send({ state });
 
@@ -47,15 +52,18 @@ module.exports = {
 
         if (stateExists) {
             console.log(`State with code: ${code} already exists.`);
-            return res.json(stateExists);
+            return res.status(403).json(stateExists);
         }
 
         try {
-            const state = await State.create({ ...req.body });
+            const state = await State.create({ ...req.body, code: code.toUpperCase() });
 
             await state.save();
 
             const regionById = await Region.findById(region);
+
+            if (!regionById)
+                return res.status(404).send({ error: 'Error finding the region. Check if the ID is correct.' });
 
             regionById.states.push(state);
 
@@ -75,6 +83,8 @@ module.exports = {
             const state = await State.findByIdAndUpdate(req.params.stateId, 
                 { ...req.body }, { new: true, useFindAndModify: false });
 
+            if (!state)
+                return res.status(404).send({ error: 'Error finding the state. Check if the ID is correct.' });
 
             await state.save();
 
@@ -95,6 +105,8 @@ module.exports = {
                 { ...req.body }, 
                 { new: true, useFindAndModify: false });
 
+            if (!state)
+                return res.status(404).send({ error: 'Error finding the state. Check if the code is correct.' });
 
             await state.save();
 
@@ -116,7 +128,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error removing the state.' });
+            return res.status(404).send({ error: 'Error finding the state. Check if the ID is correct.' });
         }
     },
 

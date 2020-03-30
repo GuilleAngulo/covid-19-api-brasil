@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
+const { errors } = require('celebrate');
 
 const port = process.env.PORT || 3000
 
@@ -26,6 +27,8 @@ app.use(morgan('combined', { stream: accessLogStream }));
 app.use('/region', regionRoutes);
 app.use('/state', stateRoutes);
 app.use('/stats', statsRoutes);
+
+app.use(errors());
 
 
 app.listen(port, () => {
