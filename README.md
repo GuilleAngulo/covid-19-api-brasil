@@ -4,7 +4,7 @@
 
 | PATH | METHOD | SUMMARY | PARAMETERS |
 | ------------- | ------------- | ------------- | ------------- |
-| /state/:code  | GET  | Finds a state by code | code [route param] [string] [description: UF code of Brazil] [required: true] |
+| /state/:code  | GET  | Finds a state by code | code [route param] [string] [UF code of Brazil] [required: true] |
 | Contenido de la celda  | Contenido de la celda  |
 
 - PATH
