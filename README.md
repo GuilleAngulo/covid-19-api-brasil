@@ -1,6 +1,12 @@
 #  Brasil COVID-19 Cases API (Under Construction 🚧)
 
 ## Get State
+
+| PATH | METHOD | SUMMARY | PARAMETERS |
+| ------------- | ------------- | ------------- | ------------- |
+| /state/:code  | GET  | Finds a state by code | code [route param] [string] [description: UF code of Brazil] [required: true] |
+| Contenido de la celda  | Contenido de la celda  |
+
 - PATH
 /state/:code:
 - METHOD
