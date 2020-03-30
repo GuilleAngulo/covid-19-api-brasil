@@ -2,21 +2,19 @@
 
 ## Get State
 
+Finds state by UF code
+
+```http
+GET /state/:code
+```
+
+| Parameter | In | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `code` | `path` | `string` | UF code (Brazil). **Required** | 
+
+
 | PATH | METHOD | SUMMARY | PARAMETERS |
 | ------------- | ------------- | ------------- | ------------- |
 | /state/:code  | GET  | Finds a state by code | code [UF code of Brazil] |
-| Contenido de la celda  | Contenido de la celda  |
+| /state/:code  | GET  | Finds a state by code | code [UF code of Brazil] |
 
-- PATH
-/state/:code:
-- METHOD
-GET
-      summary: Get a state by code
-      parameters:
-        - in: path
-          name: code
-          schema:
-            type: string
-            enum: [AC, AM, AP, PA, ...]
-          required: true
-          description: UF code of Brazil
