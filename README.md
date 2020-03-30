@@ -10,4 +10,29 @@ GET /state/:code
 
 | Parameter | In | Type | Description |
 | :--- | :--- | :--- | :--- |
-| `code` | `path` | `string` | **Required** UF code (Brazil) | 
+| `code` | `path` | `string` | **Required**. UF code of Brazil |
+
+Responses
+
+```javascript
+{
+  "_id": string,
+  "name": string,
+  "code": string,
+  "population": number,
+  "region": string,
+  "createdAt": date,
+  "updatedAt": date,
+  "__v": number,
+  "confirmed": number,
+  "deaths": number,
+  "officialUpdated": date
+}
+```
+| Status Code | Description | Message |
+| :--- | :--- |
+| 200 | `OK` | 
+| 201 | `CREATED` |
+| 400 | `BAD REQUEST` |
+| 404 | `NOT FOUND` |
+| 500 | `INTERNAL SERVER ERROR` |
