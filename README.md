@@ -29,7 +29,8 @@ Responses
   "officialUpdated": date
 }
 ```
-| Status Code | Description | Message |
+
+| Status Code | Description |
 | :--- | :--- |
 | 200 | `OK` | 
 | 201 | `CREATED` |
