@@ -1,14 +1,27 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
+const { CronJob } = require('cron');
 
 const State = require('../models/State');
 
+const { setUpDirectory, cleanDirectory } = require('../utils/directory');
+const { createUpdateLogger } = require('../utils/log');
+
+// PAGE SPECIFIC VALUES
 const COMUNICATIONS_URL = 'https://covid.saude.gov.br/';
 const UPDATE_XPATH = '//div[contains(@class, "card-total")][2]/div[2]/b';
 const DONWLOAD_BUTTON_XPATH = '//div[@class="ok"]';
+const HEADER_TEXT = {
+    UF: 'estado',
+    CONFIRMED: 'casosAcumulados',
+    DEATHS: 'obitosAcumulado',
+}
 
 const TEMP_PATH = path.resolve(__dirname, '..', 'temp');
+
+const LOG_PATH = path.resolve(__dirname, '..', '..', 'log');
+const logger = createUpdateLogger(LOG_PATH);
 
 module.exports = {
     async index() {
@@ -25,19 +38,35 @@ module.exports = {
             console.log('Page update:', updateAt);
             console.log('Database update:', storedUpdateAt);
             if (updateAt && updateAt > storedUpdateAt) {
-                console.log('Database outdated. Starting update with new values...');
+                logger.info('Database outdated. Starting update ...');
                 await downloadCSVFile(page, DONWLOAD_BUTTON_XPATH);
                 const data = csvToJSON(updateAt, TEMP_PATH);
                 await updateDatabase(data);
         
             } else {
-                console.log('Database updated.');
+                logger.trace('Database up to date.');
             }
         } catch (error) {
-            console.error(error);
+            logger.error(error);
         }
         await browser.close();
         console.log('Browser closed');
+    },
+
+    cron() {
+        //Scheduled for everyday 18:00 and 00:00
+        const job = new CronJob('00 18,00 * * *', 
+        async () => {
+            logger.info('Starting update cron.');
+            await module.exports.index();
+            logger.info('Cron job finished.');
+        }, 
+        null,
+        true, 
+        'America/Sao_Paulo');
+        //Testing cron next schedules
+        //console.log(job.nextDates(5).map(date => date.toString()))  
+        job.start();
     }
 }
 
@@ -52,7 +81,7 @@ function csvToJSON(update, directoryPath) {
         const lines = file.toString().split("\r\n");
         // Check if header has correct format
         const header = lines[0].split(";");
-        if (header[1] === "estado" && header[4] === "casosAcumulados" && header[6] === "obitosAcumulado") {
+        if (header[1] === HEADER_TEXT.UF && header[4] === HEADER_TEXT.CONFIRMED && header[6] === HEADER_TEXT.DEATHS) {
             for (let i = 1; i < lines.length; i++) {
                 const currentline = lines[i].split(";");
                 if (currentline[2] === date) {
@@ -65,16 +94,18 @@ function csvToJSON(update, directoryPath) {
                 }
             }
         } else {
-            console.error('Header fields does not match the pattern.');
+            logger.error('Header fields does not match the pattern.');
         }
     } catch (error) {
-        console.error('Error parsing CSV file:', error);
+        logger.error('Error parsing CSV file:', error);
     }
+    //Remove CSV File
+    cleanDirectory(directoryPath);
     return result;
 }
 
 async function updateDatabase(data) {
-    ('Updating database...');
+    console.log('Updating database...');
     data.map(async (stateUpdate) => {
       try {
 
@@ -86,7 +117,7 @@ async function updateDatabase(data) {
           await state.save();
 
       } catch (error) {
-          throw new Error('Error updating state:', error);
+            logger.error('Error updating state:', error);
       }
     });
 
@@ -94,20 +125,8 @@ async function updateDatabase(data) {
 }
 
 
-function cleanDirectory(directoryPath) {
-    console.log('Cleaning temp folder...');
-    fs.readdir(directoryPath, (err, files) => {
-        if (err) console.error(`Error reading the folder at ${directoryPath}:`,err);
-        for (let file of files) {
-            fs.unlink(path.join(directoryPath, file), (err) => {
-                if(err) console.error(`Error removing files at ${directoryPath}`,err);
-            });
-        }
-    })
-}
-
 async function downloadCSVFile(page, ElementXPath) {
-        cleanDirectory(TEMP_PATH);
+        setUpDirectory(TEMP_PATH);
         const [el] = await page.$x(ElementXPath);
         await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: TEMP_PATH });
         await el.click({ delay: 100 });
@@ -132,29 +151,29 @@ async function getUpdateAt(page, XPath) {
         const timeString = dateJSON.match(hourRegex).toString();
         return new Date(timeString + ' ' + dateString);
     } catch (error) {
-        console.log('Error getting update time: ', error);
+        logger.error('Error getting update time: ', error);
     }
 }
 
 async function getStoredUpdate() {
     console.log('Getting stored update time...');
     let result = '';
-        await State.aggregate(
-            [
-                { 
-                    $group: {
-                        _id: null, 
-                        officialUpdated:  { $first: "$officialUpdated" },
-                    }   
-                }
-            ],
-            (error, data) => {
-                if (error) {
-                    console.log('Error retrieving data from database', error);
-                    return;
-                }
-                result = data[0].officialUpdated;
+    await State.aggregate(
+        [
+            { 
+                $group: {
+                    _id: null, 
+                    officialUpdated:  { $first: "$officialUpdated" },
+                }   
             }
-        );
+        ],
+        (error, data) => {
+            if (error) {
+                logger.log('Error retrieving data from database', error);
+                return;
+            }
+            result = data[0].officialUpdated;
+        }
+    );
     return result;
 }
