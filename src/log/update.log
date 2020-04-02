@@ -1,0 +1,7 @@
+[2020-04-02T19:12:00.020] [INFO] default - Starting update cron.
+[2020-04-02T19:12:10.931] [INFO] default - Database outdated. Starting update ...
+[2020-04-02T19:12:16.105] [ERROR] default - Header fields does not match the pattern.
+[2020-04-02T19:12:16.276] [INFO] default - Cron job finished.
+[2020-04-02T19:15:00.019] [INFO] default - Starting update cron.
+[2020-04-02T19:15:08.073] [INFO] default - Database outdated. Starting update ...
+[2020-04-02T19:15:13.382] [INFO] default - Cron job finished.

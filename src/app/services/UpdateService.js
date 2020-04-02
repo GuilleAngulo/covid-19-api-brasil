@@ -15,7 +15,7 @@ const DONWLOAD_BUTTON_XPATH = '//div[@class="ok"]';
 const HEADER_TEXT = {
     UF: 'estado',
     CONFIRMED: 'casosAcumulados',
-    DEATHS: 'obitosAcumulado',
+    DEATHS: 'obitosAcumulados',
 }
 
 const TEMP_PATH = path.resolve(__dirname, '..', 'temp');
@@ -55,7 +55,7 @@ module.exports = {
 
     cron() {
         //Scheduled for everyday 18:00 and 00:00
-        const job = new CronJob('00 18,00 * * *', 
+        const job = new CronJob('00 18,00 * * *',
         async () => {
             logger.info('Starting update cron.');
             await module.exports.index();

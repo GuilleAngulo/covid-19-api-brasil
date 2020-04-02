@@ -32,12 +32,15 @@ module.exports = {
     },
     async findByCode(req, res) {
         try {
-            const state = await State.findOne({ code: req.params.code.toUpperCase() });
+            const state = await State.findOne(
+                { code: req.params.code.toUpperCase() },
+                'name code population confirmed deaths officialUpdated')
+                    .populate({ path: 'region', select: 'description' });
 
             if (!state)
                 return res.status(404).json({ error: 'State code not found.'});
 
-            return res.status(200).json( state );
+            return res.status(200).json({ state });
 
         } catch (error) {
             console.log('Error:', error);

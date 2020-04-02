@@ -1,10 +1,6 @@
 const { celebrate, Segments, Joi } = require('celebrate');
 
-const uf = ["AC", "AL", "AP" ,"AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", 
-            "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"];
-
-const brazilPopulation = 212174832;
-
+const { uf } = require('../utils/brazil');
 
 
 module.exports = {
@@ -28,10 +24,10 @@ module.exports = {
         [Segments.BODY]: Joi.object().keys({
             name: Joi.string().required().min(1).max(24),
             code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).insensitive(),
-            population: Joi.number().min(1).max(brazilPopulation),
+            population: Joi.number().min(1),
             region: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
-            confirmed: Joi.number().min(0).max(brazilPopulation),
-            deaths: Joi.number().min(0).max(brazilPopulation),
+            confirmed: Joi.number().min(0),
+            deaths: Joi.number().min(0),
             officialUpdated: Joi.date(),
         }),
     }),
@@ -41,8 +37,8 @@ module.exports = {
             authorization: Joi.string().required(),
         }).unknown(),
         [Segments.BODY]: Joi.object().keys({
-            confirmed: Joi.number().min(0).max(brazilPopulation),
-            deaths: Joi.number().min(0).max(brazilPopulation),
+            confirmed: Joi.number().min(0),
+            deaths: Joi.number().min(0),
             officialUpdated: Joi.date(),
         }),
     }),
@@ -55,8 +51,8 @@ module.exports = {
             code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...uf).insensitive(),
         }),
         [Segments.BODY]: Joi.object().keys({
-            confirmed: Joi.number().min(0).max(brazilPopulation),
-            deaths: Joi.number().min(0).max(brazilPopulation),
+            confirmed: Joi.number().min(0),
+            deaths: Joi.number().min(0),
             officialUpdated: Joi.date(),
         }),
     }),
