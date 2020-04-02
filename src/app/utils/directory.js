@@ -25,10 +25,12 @@ module.exports = {
     },
 
     existsDirectory(directoryPath) {
-        fs.readdir(directoryPath, (error) => {
-            if (error) return false;
-            else return true;
-        });
+        try {
+            fs.readdirSync(directoryPath);
+            return true;
+        } catch (error) {
+            return false;
+        }
     },
 
     setUpDirectory(directoryPath) {

@@ -1,7 +1,7 @@
 const State = require('../models/State');
 
 module.exports = {
-    async total(req, res) {
+    total(req, res) {
             State.aggregate(
                 [
                     { 
@@ -15,6 +15,7 @@ module.exports = {
                 ],
                 (error, result) => {
                     if (error) return res.status(400).send({ error: 'Error retrieving stats'});
+                    result[0]._id = undefined;
                     return res.status(200).send( result[0] );
                 }
             );

@@ -5,7 +5,7 @@ const { CronJob } = require('cron');
 
 const State = require('../models/State');
 
-const { setUpDirectory, cleanDirectory } = require('../utils/directory');
+const { setUpDirectory, cleanDirectory, existsDirectory } = require('../utils/directory');
 const { createUpdateLogger } = require('../utils/log');
 
 // PAGE SPECIFIC VALUES
@@ -126,7 +126,7 @@ async function updateDatabase(data) {
 
 
 async function downloadCSVFile(page, ElementXPath) {
-        setUpDirectory(TEMP_PATH);
+        if (!existsDirectory(TEMP_PATH)) setUpDirectory(TEMP_PATH);
         const [el] = await page.$x(ElementXPath);
         await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: TEMP_PATH });
         await el.click({ delay: 100 });

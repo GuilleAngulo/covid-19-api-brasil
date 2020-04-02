@@ -7,7 +7,8 @@ const State = require('../models/State');
 module.exports = {
     async index(req, res) {
         try {
-            const states = await State.find().populate(['region']);
+            const states = await State.find({}, 'name code population confirmed deaths officialUpdated')
+                .populate({ path: 'region', select: 'description' });
 
             return res.status(200).send({ states });
         } catch (error) {
@@ -31,12 +32,12 @@ module.exports = {
     },
     async findByCode(req, res) {
         try {
-            const state = await State.find({ code: req.params.code.toUpperCase() });
+            const state = await State.findOne({ code: req.params.code.toUpperCase() });
 
             if (!state)
                 return res.status(404).json({ error: 'State code not found.'});
 
-            return res.status(200).send({ state });
+            return res.status(200).json( state );
 
         } catch (error) {
             console.log('Error:', error);
