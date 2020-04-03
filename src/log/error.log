@@ -1,1 +1,5 @@
 [2020-04-02T19:12:16.105] [ERROR] default - Header fields does not match the pattern.
+[2020-04-03T19:38:15.838] [ERROR] default - Error parsing CSV file: TypeError: Cannot read property 'UF' of undefined
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:79:39)
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:37:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:13)

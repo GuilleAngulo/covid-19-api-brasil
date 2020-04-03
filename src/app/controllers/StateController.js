@@ -1,5 +1,3 @@
-const express = require('express');
-
 const Region = require('../models/Region');
 const State = require('../models/State');
 

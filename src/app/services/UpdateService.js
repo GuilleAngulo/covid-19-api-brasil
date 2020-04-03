@@ -5,18 +5,12 @@ const { CronJob } = require('cron');
 
 const State = require('../models/State');
 
-const { setUpDirectory, cleanDirectory, existsDirectory } = require('../utils/directory');
+const { createDirectory, cleanDirectory } = require('../utils/directory');
 const { createUpdateLogger } = require('../utils/log');
 
 // PAGE SPECIFIC VALUES
-const COMUNICATIONS_URL = 'https://covid.saude.gov.br/';
-const UPDATE_XPATH = '//div[contains(@class, "card-total")][2]/div[2]/b';
-const DONWLOAD_BUTTON_XPATH = '//div[@class="ok"]';
-const HEADER_TEXT = {
-    UF: 'estado',
-    CONFIRMED: 'casosAcumulados',
-    DEATHS: 'obitosAcumulados',
-}
+
+const { URL, UPDATE_XPATH, DONWLOAD_BUTTON_XPATH, HEADER_TEXT } = require('../utils/website-data');
 
 const TEMP_PATH = path.resolve(__dirname, '..', 'temp');
 
@@ -29,8 +23,8 @@ module.exports = {
         const browser = await puppeteer.launch();
         const page = await browser.newPage();
         try {
-            console.log('Launching page: ', COMUNICATIONS_URL);
-            await page.goto(COMUNICATIONS_URL);
+            console.log('Launching page: ', URL);
+            await page.goto(URL);
             //Delay to print data
             await page.waitFor(5000);
             const updateAt = await getUpdateAt(page, UPDATE_XPATH);
@@ -55,7 +49,8 @@ module.exports = {
 
     cron() {
         //Scheduled for everyday 18:00 and 00:00
-        const job = new CronJob('00 18,00 * * *',
+        //const job = new CronJob('00 18,00 * * *',
+        const job = new CronJob('38 19 * * *',
         async () => {
             logger.info('Starting update cron.');
             await module.exports.index();
@@ -126,7 +121,8 @@ async function updateDatabase(data) {
 
 
 async function downloadCSVFile(page, ElementXPath) {
-        if (!existsDirectory(TEMP_PATH)) setUpDirectory(TEMP_PATH);
+        if (fs.existsSync(TEMP_PATH)) cleanDirectory(TEMP_PATH);
+        else createDirectory(TEMP_PATH);
         const [el] = await page.$x(ElementXPath);
         await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: TEMP_PATH });
         await el.click({ delay: 100 });

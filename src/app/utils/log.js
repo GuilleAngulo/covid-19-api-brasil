@@ -2,11 +2,11 @@ const path = require('path');
 const fs = require('fs');
 const log4js = require('log4js');
 
-const { setUpDirectory, existsDirectory } = require('./directory');
+const { createDirectory } = require('./directory');
 
 module.exports = {
     createAccessLogStream(logPath) {
-        if (!existsDirectory(logPath)) setUpDirectory(logPath);
+        if (!fs.existsSync(logPath)) createDirectory(logPath);
         return accessLogStream = fs.createWriteStream(path.join(logPath, 'access.log'), { flags: 'a' });
     },
 

@@ -1,6 +1,6 @@
 const { celebrate, Segments, Joi } = require('celebrate');
 
-const { uf } = require('../utils/brazil');
+const { UF } = require('../utils/brazil');
 
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
 
     findByCode: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
-            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...uf).insensitive(),
+            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...UF).insensitive(),
         }),
     }),
 
@@ -48,7 +48,7 @@ module.exports = {
             authorization: Joi.string().required(),
         }).unknown(),
         [Segments.PARAMS]: Joi.object().keys({
-            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...uf).insensitive(),
+            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...UF).insensitive(),
         }),
         [Segments.BODY]: Joi.object().keys({
             confirmed: Joi.number().min(0),

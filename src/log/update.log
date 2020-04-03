@@ -5,3 +5,10 @@
 [2020-04-02T19:15:00.019] [INFO] default - Starting update cron.
 [2020-04-02T19:15:08.073] [INFO] default - Database outdated. Starting update ...
 [2020-04-02T19:15:13.382] [INFO] default - Cron job finished.
+[2020-04-03T19:38:00.015] [INFO] default - Starting update cron.
+[2020-04-03T19:38:10.693] [INFO] default - Database outdated. Starting update ...
+[2020-04-03T19:38:15.838] [ERROR] default - Error parsing CSV file: TypeError: Cannot read property 'UF' of undefined
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:79:39)
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:37:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:13)
+[2020-04-03T19:38:16.027] [INFO] default - Cron job finished.

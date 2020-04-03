@@ -1,8 +1,6 @@
 const { celebrate, Segments, Joi } = require('celebrate');
 
-const { regions } = require('../utils/brazil');
-
-const brazilPopulation = 212174832;
+const { REGION } = require('../utils/brazil');
 
 
 
@@ -16,7 +14,7 @@ module.exports = {
 
     findByName: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
-            name: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...regions).insensitive(),
+            name: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...REGION).insensitive(),
         }),
     }),
 

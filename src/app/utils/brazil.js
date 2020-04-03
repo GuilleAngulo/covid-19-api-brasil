@@ -1,9 +1,9 @@
 const State = require('../models/State');
 
 module.exports = {
-    uf: ["AC", "AL", "AP" ,"AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", 
+    "UF": ["AC", "AL", "AP" ,"AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", 
             "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC", "SP", "SE", "TO"],
-    regions: ["norte","nordeste", "sudeste", "centro-oeste", "sul"],
+    "REGION": ["norte","nordeste", "sudeste", "centro-oeste", "sul"],
 
     totalPopulation() {
         State.aggregate(
