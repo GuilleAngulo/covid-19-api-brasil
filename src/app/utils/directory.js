@@ -22,10 +22,8 @@ module.exports = {
                         fs.unlinkSync(path.join(directoryPath, file));
                     }
                 } catch (error) {
-                    console.error(`Error removing the file ${file}:`, error);
+                    console.error(`Error cleaning directory at ${directoryPath}:`, error);
                 }
-            } else {
-                console.log('Empty directory. Nothing to clean');
             }
         }
     },

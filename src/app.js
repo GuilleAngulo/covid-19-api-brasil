@@ -5,7 +5,9 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const path = require('path');
 const { errors } = require('celebrate');
-const { createAccessLogStream } = require('./app/utils/log');
+
+const addRequestId = require('express-request-id')();
+const { createLogStream } = require('./app/utils/log');
 
 const regionRoutes = require('./app/routes/RegionRoutes');
 const stateRoutes = require('./app/routes/StateRoutes');
@@ -18,7 +20,23 @@ app.use(helmet());
 app.use(bodyParser.json({ type: 'application/*+json' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
-app.use(morgan('combined', { stream: createAccessLogStream(path.join(__dirname, '/log')) }));
+
+const loggerFormat = ':id [:date[web]]" :method :url" :status :response-time ms';
+const accessStream = createLogStream(path.join(__dirname, 'log'), 'access.log');
+const errorStream = createLogStream(path.join(__dirname, 'log'), 'error.log');
+
+app.use(addRequestId);
+morgan.token('id', req => req.id);
+
+app.use(morgan(loggerFormat, {
+    skip: (req, res) => res.statusCode < 400,
+    stream: errorStream,
+}));
+
+app.use(morgan(loggerFormat, {
+    skip: (req, res) => res.statusCode >= 400,
+    stream: accessStream,
+}));
 
 app.use('/region', regionRoutes);
 app.use('/state', stateRoutes);

@@ -1,14 +1,35 @@
-[2020-04-02T19:12:00.020] [INFO] default - Starting update cron.
-[2020-04-02T19:12:10.931] [INFO] default - Database outdated. Starting update ...
-[2020-04-02T19:12:16.105] [ERROR] default - Header fields does not match the pattern.
-[2020-04-02T19:12:16.276] [INFO] default - Cron job finished.
-[2020-04-02T19:15:00.019] [INFO] default - Starting update cron.
-[2020-04-02T19:15:08.073] [INFO] default - Database outdated. Starting update ...
-[2020-04-02T19:15:13.382] [INFO] default - Cron job finished.
-[2020-04-03T19:38:00.015] [INFO] default - Starting update cron.
-[2020-04-03T19:38:10.693] [INFO] default - Database outdated. Starting update ...
-[2020-04-03T19:38:15.838] [ERROR] default - Error parsing CSV file: TypeError: Cannot read property 'UF' of undefined
-    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:79:39)
+[2020-04-06T15:01:00.010] [INFO] default - Starting update cron.
+[2020-04-06T15:01:11.768] [INFO] default - Cron job finished.
+[2020-04-06T15:03:00.012] [INFO] default - Starting update cron.
+[2020-04-06T15:03:08.145] [INFO] default - Database outdated. Starting update ...
+[2020-04-06T15:03:13.292] [ERROR] default - Error parsing CSV file: ReferenceError: HEADER_TEXT is not defined
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:79:27)
     at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:37:30)
     at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:13)
-[2020-04-03T19:38:16.027] [INFO] default - Cron job finished.
+[2020-04-06T15:03:13.458] [INFO] default - Cron job finished.
+[2020-04-06T15:07:00.012] [INFO] default - Starting update cron.
+[2020-04-06T15:07:06.312] [INFO] default - Database outdated. Starting update ...
+[2020-04-06T15:07:11.441] [ERROR] default - Header fields does not match the pattern. Check CSV File
+[2020-04-06T15:07:11.612] [INFO] default - Cron job finished.
+[2020-04-06T15:16:00.012] [INFO] default - Starting update cron.
+[2020-04-06T15:16:08.139] [INFO] default - Database outdated. Starting update ...
+[2020-04-06T15:16:13.267] [ERROR] default - Header fields does not match the pattern. Check CSV File.
+[2020-04-06T15:16:13.267] [ERROR] default - Error parsing CSV file: Error: Error in file headers. Update canceled.
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:93:19)
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:37:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:13)
+[2020-04-06T15:16:13.440] [INFO] default - Cron job finished.
+[2020-04-06T15:32:00.023] [INFO] default - Starting update cron.
+[2020-04-06T15:32:10.372] [INFO] default - Database outdated. Downloading new data ...
+[2020-04-06T15:32:15.512] [ERROR] default - Error parsing CSV file: Error: Header fields does not match the pattern.
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:92:19)
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:37:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:13)
+[2020-04-06T15:32:15.704] [INFO] default - Cron job finished.
+[2020-04-06T15:42:00.021] [INFO] default - Starting update cron.
+[2020-04-06T15:42:10.985] [INFO] default - Database outdated. Downloading new data ...
+[2020-04-06T15:42:16.147] [ERROR] default - Error parsing CSV file: Error: Header fields does not match the pattern.
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:92:19)
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:37:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:13)
+[2020-04-06T15:42:16.300] [INFO] default - Cron job finished.

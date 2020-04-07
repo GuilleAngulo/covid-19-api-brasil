@@ -9,8 +9,7 @@ const { createDirectory, cleanDirectory } = require('../utils/directory');
 const { createUpdateLogger } = require('../utils/log');
 
 // PAGE SPECIFIC VALUES
-
-const { URL, UPDATE_XPATH, DONWLOAD_BUTTON_XPATH, HEADER_TEXT } = require('../utils/website-data');
+const { URL, UPDATE_XPATH, DONWLOAD_BUTTON_XPATH, DOCUMENT_HEADER_TEXT } = require('../utils/website-data');
 
 const TEMP_PATH = path.resolve(__dirname, '..', 'temp');
 
@@ -32,13 +31,13 @@ module.exports = {
             console.log('Page update:', updateAt);
             console.log('Database update:', storedUpdateAt);
             if (updateAt && updateAt > storedUpdateAt) {
-                logger.info('Database outdated. Starting update ...');
+                logger.info('Database outdated. Downloading new data ...');
                 await downloadCSVFile(page, DONWLOAD_BUTTON_XPATH);
                 const data = csvToJSON(updateAt, TEMP_PATH);
-                await updateDatabase(data);
-        
+                if (Array.isArray(data) && data.length) 
+                    await updateDatabase(data);
             } else {
-                logger.trace('Database up to date.');
+                logger.info('Database up to date.');
             }
         } catch (error) {
             logger.error(error);
@@ -49,16 +48,15 @@ module.exports = {
 
     cron() {
         //Scheduled for everyday 18:00 and 00:00
-        //const job = new CronJob('00 18,00 * * *',
-        const job = new CronJob('38 19 * * *',
-        async () => {
-            logger.info('Starting update cron.');
-            await module.exports.index();
-            logger.info('Cron job finished.');
-        }, 
-        null,
-        true, 
-        'America/Sao_Paulo');
+        const job = new CronJob('00 18,00 * * *',
+            async () => {
+                logger.info('Starting update cron.');
+                await module.exports.index();
+                logger.info('Cron job finished.');
+            }, 
+            null,
+            true, 
+            'America/Sao_Paulo');
         //Testing cron next schedules
         //console.log(job.nextDates(5).map(date => date.toString()))  
         job.start();
@@ -76,7 +74,7 @@ function csvToJSON(update, directoryPath) {
         const lines = file.toString().split("\r\n");
         // Check if header has correct format
         const header = lines[0].split(";");
-        if (header[1] === HEADER_TEXT.UF && header[4] === HEADER_TEXT.CONFIRMED && header[6] === HEADER_TEXT.DEATHS) {
+        if (header[1] === DOCUMENT_HEADER_TEXT.UF && header[4] === DOCUMENT_HEADER_TEXT.CONFIRMED && header[6] === DOCUMENT_HEADER_TEXT.DEATHS) {
             for (let i = 1; i < lines.length; i++) {
                 const currentline = lines[i].split(";");
                 if (currentline[2] === date) {
@@ -89,10 +87,11 @@ function csvToJSON(update, directoryPath) {
                 }
             }
         } else {
-            logger.error('Header fields does not match the pattern.');
+            throw new Error('Header fields does not match the pattern.');
         }
     } catch (error) {
         logger.error('Error parsing CSV file:', error);
+        console.error('Error parsing CSV file. Check the log.');
     }
     //Remove CSV File
     cleanDirectory(directoryPath);
@@ -115,7 +114,6 @@ async function updateDatabase(data) {
             logger.error('Error updating state:', error);
       }
     });
-
     console.log('Database succesfully updated');
 }
 
@@ -147,13 +145,12 @@ async function getUpdateAt(page, XPath) {
         const timeString = dateJSON.match(hourRegex).toString();
         return new Date(timeString + ' ' + dateString);
     } catch (error) {
-        logger.error('Error getting update time: ', error);
+        logger.error('Error getting update time:', error);
     }
 }
 
 async function getStoredUpdate() {
     console.log('Getting stored update time...');
-    let result = '';
     await State.aggregate(
         [
             { 
@@ -165,11 +162,10 @@ async function getStoredUpdate() {
         ],
         (error, data) => {
             if (error) {
-                logger.log('Error retrieving data from database', error);
+                logger.error('Error retrieving data from database:', error);
                 return;
             }
-            result = data[0].officialUpdated;
+            return data[0].officialUpdated;
         }
     );
-    return result;
 }

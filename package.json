@@ -17,6 +17,7 @@
     "cron": "^1.8.2",
     "cross-env": "^7.0.2",
     "express": "^4.17.1",
+    "express-request-id": "^1.4.1",
     "helmet": "^3.21.3",
     "jsonwebtoken": "^8.5.1",
     "log4js": "^6.1.2",
