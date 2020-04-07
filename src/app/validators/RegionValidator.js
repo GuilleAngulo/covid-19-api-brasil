@@ -14,7 +14,7 @@ module.exports = {
 
     findByName: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
-            name: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...REGION).insensitive(),
+            name: Joi.string().required().valid(...REGION).insensitive(),
         }),
     }),
 
@@ -23,7 +23,7 @@ module.exports = {
             authorization: Joi.string().required(),
         }).unknown(),
         [Segments.BODY]: Joi.object().keys({
-            name: Joi.string().required().min(1).regex(/^[a-zA-Z]$/).insensitive(),
+            name: Joi.string().required().valid(...REGION).insensitive(),
             description: Joi.string().required().min(1).max(24),
             states: Joi.array().required(),
         }),
@@ -34,7 +34,7 @@ module.exports = {
             authorization: Joi.string().required(),
         }).unknown(),
         [Segments.BODY]: Joi.object().keys({
-            name: Joi.string().required().min(1).regex(/^[a-zA-Z]$/).insensitive(),
+            name: Joi.string().required().min(1).insensitive(),
             description: Joi.string().required().min(1).max(24),
             states: Joi.array().required(),
         }),

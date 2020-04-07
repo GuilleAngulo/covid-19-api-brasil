@@ -3,7 +3,7 @@ jest.mock('fs');
 const fs = require('fs');
 const path = require('path');
 
-describe('log utils', () => {
+describe('directory utils', () => {
 
     const MOCK_FILE_INFO = {
         [path.join('path', 'temp', 'data.csv')]: 'csv file',
@@ -15,17 +15,19 @@ describe('log utils', () => {
         fs.__setMockFiles(MOCK_FILE_INFO);
     });
   
-    it('should create a new directory', () => {
+    test.skip('should create a new directory', () => {
     
         const { createDirectory } = require('../../src/app/utils/directory');
         const directoryPath = path.join('path', 'test');
+
+        expect(fs.existsSync(directoryPath)).toBe(false);
         
         createDirectory(directoryPath);
 
         expect(fs.existsSync(directoryPath)).toBe(true);
     });
 
-    it('should clean directory if exists', () => {
+    test.skip('should clean directory if exists', () => {
 
         const { cleanDirectory } = require('../../src/app/utils/directory');
         const directoryPath = path.join('path', 'temp');
@@ -35,6 +37,33 @@ describe('log utils', () => {
         cleanDirectory(directoryPath);
 
         expect(fs.readdirSync(directoryPath).length).toBe(0);
+
+    });
+
+    test.skip('should clean directory after new file addition', () => {
+
+        const { createDirectory, cleanDirectory } = require('../../src/app/utils/directory');
+        const newDirectoryPath = path.join('path', 'test');
+        const existingDirectoryPath = path.join('path', 'temp');
+
+        createDirectory(newDirectoryPath);
+
+        expect(fs.existsSync(newDirectoryPath)).toBe(true);
+        expect(fs.existsSync(existingDirectoryPath)).toBe(true);
+        expect(fs.readdirSync(newDirectoryPath).length).toBe(0);
+        expect(fs.readdirSync(existingDirectoryPath).length).toBe(2);
+
+        fs.writeFile('data.txt', 'Hello World', newDirectoryPath);
+        fs.writeFile('data.txt', 'Hello World', existingDirectoryPath);
+
+        expect(fs.readdirSync(newDirectoryPath).length).toBe(1);
+        expect(fs.readdirSync(existingDirectoryPath).length).toBe(3);
+
+        cleanDirectory(newDirectoryPath);
+        cleanDirectory(existingDirectoryPath);
+
+        expect(fs.readdirSync(newDirectoryPath).length).toBe(0);
+        expect(fs.readdirSync(existingDirectoryPath).length).toBe(0);
 
     });
   });

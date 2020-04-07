@@ -1,6 +1,7 @@
 const Region = require('../models/Region');
 const State = require('../models/State');
 
+const { ObjectId } = require('mongoose').Types;
 
 module.exports = {
     async index(req, res) {
@@ -97,8 +98,8 @@ module.exports = {
         const regionExists = await Region.findOne({ name });
 
         if (regionExists) {
-            console.log(`Region with name: ${code} already exists.`);
-            return res.json(regionExists);
+            console.log(`Region with name: ${name} already exists.`);
+            return res.status(403).json(regionExists);
         }
 
         try {
@@ -136,7 +137,9 @@ module.exports = {
             }, { new: true, useFindAndModify: false });
 
             region.states = [];
-            await State.remove({ region: region._id });
+            await State.deleteMany({ region: region._id }, (error) => {
+                if (error) return res.status(404).send({ error: 'Error removing previous states.' });
+            });
 
             await Promise.all(states.map(async state => {
                 const regionState = new State ({ ...state, region: region._id });
@@ -161,6 +164,10 @@ module.exports = {
         
         try {
             await Region.findByIdAndRemove(req.params.regionId, { useFindAndModify: false });
+
+            await State.deleteMany({ region: req.params.regionId }, (error) => {
+                if (error) return res.status(404).send({ error: 'Error removing states.' });
+            });
 
             return res.status(200).send({ message: 'Region removed correctly.' });
 

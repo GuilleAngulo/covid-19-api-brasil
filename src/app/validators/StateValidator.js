@@ -13,7 +13,7 @@ module.exports = {
 
     findByCode: celebrate({
         [Segments.PARAMS]: Joi.object().keys({
-            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...UF).insensitive(),
+            code: Joi.string().required().length(2).valid(...UF).insensitive(),
         }),
     }),
 
@@ -23,7 +23,7 @@ module.exports = {
         }).unknown(),
         [Segments.BODY]: Joi.object().keys({
             name: Joi.string().required().min(1).max(24),
-            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).insensitive(),
+            code: Joi.string().required().length(2).insensitive(),
             population: Joi.number().min(1),
             region: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
             confirmed: Joi.number().min(0),
@@ -48,7 +48,7 @@ module.exports = {
             authorization: Joi.string().required(),
         }).unknown(),
         [Segments.PARAMS]: Joi.object().keys({
-            code: Joi.string().required().length(2).regex(/^[a-zA-Z]$/).valid(...UF).insensitive(),
+            code: Joi.string().required().length(2).valid(...UF).insensitive(),
         }),
         [Segments.BODY]: Joi.object().keys({
             confirmed: Joi.number().min(0),

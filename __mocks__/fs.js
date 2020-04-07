@@ -39,12 +39,24 @@ function unlinkSync(filePath) {
     }
 }
 
+function writeFile(file, content, directoryPath) {
+  mockFiles[directoryPath] = [...mockFiles[directoryPath], file];
+}
 
+function createWriteStream(filePath, options) {
+  const dir = path.dirname(filePath);
+  const file = path.basename(filePath);
+  const fileStream = mockFiles[dir].find(filename => filename === file);
+  if (!fileStream) writeFile(file, '', dir); 
+  return path.join(dir, fileStream);
+}
 
 fs.__setMockFiles = __setMockFiles;
 fs.readdirSync = readdirSync;
 fs.mkdirSync = mkdirSync;
 fs.existsSync = existsSync;
 fs.unlinkSync = unlinkSync;
+fs.writeFile = writeFile;
+fs.createWriteStream = createWriteStream;
 
 module.exports = fs;

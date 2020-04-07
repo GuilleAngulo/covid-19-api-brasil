@@ -17,7 +17,6 @@ const StateSchema = new Schema({
     },
     population: {
         type: Number,
-        required: true,
     },
     suspects: {
         type: Number,

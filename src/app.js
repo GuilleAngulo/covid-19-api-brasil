@@ -17,7 +17,8 @@ const statsRoutes = require('./app/routes/StatsRoutes');
 const app = express();
 
 app.use(helmet());
-app.use(bodyParser.json({ type: 'application/*+json' }));
+//app.use(bodyParser.json({ type: 'application/*+json' }));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
 
