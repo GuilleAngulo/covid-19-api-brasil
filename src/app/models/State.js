@@ -18,23 +18,17 @@ const StateSchema = new Schema({
     population: {
         type: Number,
     },
-    suspects: {
-        type: Number,
-    },
-    discarded: {
-        type: Number,
-    },
     confirmed: {
         type: Number,
+        default: 0,
     },
     deaths: {
         type: Number,
-    },
-    recovered: {
-        type: Number,
+        default: 0,
     },
     officialUpdated: {
         type: Date,
+        default: Date.now(),
     }
 }, {
     timestamps: true,

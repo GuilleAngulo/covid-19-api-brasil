@@ -5,6 +5,28 @@ module.exports = {
         states: [],
     },
 
+    regionStatesMock: {
+        name: 'norte',
+        description: 'Região Norte',
+        states: [
+            { 
+                name: 'State 1',
+                code: 'SP',
+                population: 1000,
+                confirmed: 20,
+                deaths: 10,
+            },
+            { 
+                name: 'State 2',
+                code: 'RJ',
+                population: 900,
+                confirmed: 10,
+                deaths: 5,
+            },
+
+        ],
+    },
+
     regionMock1: {
         name: 'norte',
         description: 'Região Norte',
@@ -13,6 +35,7 @@ module.exports = {
                 name: 'State 1',
                 code: 'SP',
                 population: 999999,
+                confirmed: 10,
             },
         ],
     },

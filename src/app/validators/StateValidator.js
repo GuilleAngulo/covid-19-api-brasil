@@ -24,7 +24,7 @@ module.exports = {
         [Segments.BODY]: Joi.object().keys({
             name: Joi.string().required().min(1).max(24),
             code: Joi.string().required().length(2).insensitive(),
-            population: Joi.number().min(1),
+            population: Joi.number().required().min(1),
             region: Joi.string().required().regex(/^[0-9a-fA-F]{24}$/),
             confirmed: Joi.number().min(0),
             deaths: Joi.number().min(0),
@@ -40,6 +40,7 @@ module.exports = {
             confirmed: Joi.number().min(0),
             deaths: Joi.number().min(0),
             officialUpdated: Joi.date(),
+            population: Joi.number().min(1),
         }),
     }),
 
@@ -54,6 +55,7 @@ module.exports = {
             confirmed: Joi.number().min(0),
             deaths: Joi.number().min(0),
             officialUpdated: Joi.date(),
+            population: Joi.number().min(1),
         }),
     }),
 
