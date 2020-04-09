@@ -7,6 +7,7 @@ const State = require('../models/State');
 
 const { createDirectory, cleanDirectory } = require('../utils/directory');
 const { createUpdateLogger } = require('../utils/log');
+const { formatDate, matchDateInText } = require('../utils/date');
 
 // PAGE SPECIFIC VALUES
 const { URL, UPDATE_XPATH, DONWLOAD_BUTTON_XPATH, DOCUMENT_HEADER_TEXT } = require('../utils/website-data');
@@ -60,112 +61,104 @@ module.exports = {
         //Testing cron next schedules
         //console.log(job.nextDates(5).map(date => date.toString()))  
         job.start();
-    }
-}
+    },
 
-function csvToJSON(update, directoryPath) {
-    console.log('Parsing CSV file to JSON...');
-    const result = [];
-    try {
-        const month = update.getMonth() + 1;
-        const date = `${update.getDate() < 10 ? '0' + update.getDate() : update.getDate()}/${month < 10 ? '0' + month : month }/${update.getFullYear()}`;
-        const files = fs.readdirSync(directoryPath);
-        const file = fs.readFileSync(path.join(directoryPath, files[0]));
-        const lines = file.toString().split("\r\n");
-        // Check if header has correct format
-        const header = lines[0].split(";");
-        if (header[1] === DOCUMENT_HEADER_TEXT.UF && header[4] === DOCUMENT_HEADER_TEXT.CONFIRMED && header[6] === DOCUMENT_HEADER_TEXT.DEATHS) {
-            for (let i = 1; i < lines.length; i++) {
-                const currentline = lines[i].split(";");
-                if (currentline[2] === date) {
-                    result.push({
-                        "code": currentline[1], 
-                        "confirmed": currentline[4], 
-                        "deaths": currentline[6],
-                        "officialUpdated": update,
-                    });
+
+    csvToJSON(update, directoryPath) {
+        console.log('Parsing CSV file to JSON...');
+        const result = [];
+        try {
+            const date = formatDate(update);
+            const files = fs.readdirSync(directoryPath);
+            const file = fs.readFileSync(path.join(directoryPath, files[0]));
+            const lines = file.toString().split("\r\n");
+            // Check if header has correct format
+            const header = lines[0].split(";");
+            if (header[1] === DOCUMENT_HEADER_TEXT.UF && header[4] === DOCUMENT_HEADER_TEXT.CONFIRMED && header[6] === DOCUMENT_HEADER_TEXT.DEATHS) {
+                for (let i = 1; i < lines.length; i++) {
+                    const currentline = lines[i].split(";");
+                    if (currentline[2] === date) {
+                        result.push({
+                            "code": currentline[1], 
+                            "confirmed": currentline[4], 
+                            "deaths": currentline[6],
+                            "officialUpdated": update,
+                        });
+                    }
                 }
+            } else {
+                throw new Error('Header fields does not match the pattern.');
             }
-        } else {
-            throw new Error('Header fields does not match the pattern.');
+        } catch (error) {
+            logger.error('Error parsing CSV file:', error);
+            console.error('Error parsing CSV file. Check the log.');
         }
-    } catch (error) {
-        logger.error('Error parsing CSV file:', error);
-        console.error('Error parsing CSV file. Check the log.');
-    }
-    //Remove CSV File
-    cleanDirectory(directoryPath);
-    return result;
-}
+        //Remove CSV File
+        cleanDirectory(directoryPath);
+        return result;
+    },
 
-async function updateDatabase(data) {
-    console.log('Updating database...');
-    data.map(async (stateUpdate) => {
-      try {
+    async updateDatabase(data) {
+        console.log('Updating database...');
+        data.map(async (stateUpdate) => {
+        try {
 
-          const state = await State.findOneAndUpdate(
-              { code: stateUpdate.code.toUpperCase() }, 
-              { ...stateUpdate }, 
-              { new: true, useFindAndModify: false });
+            const state = await State.findOneAndUpdate(
+                { code: stateUpdate.code.toUpperCase() }, 
+                { ...stateUpdate }, 
+                { new: true, useFindAndModify: false });
 
-          await state.save();
+            await state.save();
 
-      } catch (error) {
-            logger.error('Error updating state:', error);
-      }
-    });
-    console.log('Database succesfully updated');
-}
-
-
-async function downloadCSVFile(page, ElementXPath) {
-        if (fs.existsSync(TEMP_PATH)) cleanDirectory(TEMP_PATH);
-        else createDirectory(TEMP_PATH);
-        const [el] = await page.$x(ElementXPath);
-        await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: TEMP_PATH });
-        await el.click({ delay: 100 });
-        console.log('Downloading CSV file...');
-        await page.waitFor(5000);
-}
-
-
-function reverseDate(dateString) {
-    return dateString.split('/').reverse().join('/');
-}
-
-async function getUpdateAt(page, XPath) {
-    console.log('Getting update time...');
-    try {
-        const [el] = await page.$x(XPath);
-        const date = await el.getProperty('textContent');
-        const dateJSON = await date.jsonValue();
-        const dateRegex = /\d{2}[-.\/]\d{2}(?:[-.\/]\d{2}(\d{2})?)?/g;
-        const hourRegex =  /\d{2}:\d{2}/g;
-        const dateString = reverseDate(dateJSON.match(dateRegex).toString());
-        const timeString = dateJSON.match(hourRegex).toString();
-        return new Date(timeString + ' ' + dateString);
-    } catch (error) {
-        logger.error('Error getting update time:', error);
-    }
-}
-
-async function getStoredUpdate() {
-    console.log('Getting stored update time...');
-    await State.aggregate(
-        [
-            { 
-                $group: {
-                    _id: null, 
-                    officialUpdated:  { $first: "$officialUpdated" },
-                }   
-            }
-        ],
-        (error, data) => {
-            if (error) {
-                logger.error('Error retrieving data from database:', error);
-                return;
-            }
-            return data[0].officialUpdated;
+        } catch (error) {
+                logger.error('Error updating state:', error);
         }
-    );
+        });
+        console.log('Database succesfully updated');
+    },
+
+
+    async downloadCSVFile(page, elementXPath) {
+            if (fs.existsSync(TEMP_PATH)) cleanDirectory(TEMP_PATH);
+            else createDirectory(TEMP_PATH);
+            const [el] = await page.$x(elementXPath);
+            await page._client.send('Page.setDownloadBehavior', { behavior: 'allow', downloadPath: TEMP_PATH });
+            await el.click({ delay: 100 });
+            console.log('Downloading CSV file...');
+            await page.waitFor(5000);
+    },
+
+    async getUpdateAt(page, XPath) {
+        console.log('Getting update time...');
+        try {
+            const [el] = await page.$x(XPath);
+            const date = await el.getProperty('textContent');
+            const dateJSON = await date.jsonValue();
+            return matchDateInText(dateJSON);
+        } catch (error) {
+            logger.error('Error getting update time:', error);
+        }
+    },
+
+    async getStoredUpdate() {
+        console.log('Getting stored update time...');
+        await State.aggregate(
+            [
+                { 
+                    $group: {
+                        _id: null, 
+                        officialUpdated:  { $first: "$officialUpdated" },
+                    }   
+                }
+            ],
+            (error, data) => {
+                if (error) {
+                    logger.error('Error retrieving data from database:', error);
+                    return;
+                }
+                return data[0].officialUpdated;
+            }
+        );
+    },
+
 }

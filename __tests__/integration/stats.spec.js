@@ -42,4 +42,5 @@ describe('REGION', () => {
         expect(response.body.confirmed).toBe(30);
         expect(response.body.deaths).toBe(15);
     });
+    
 });
