@@ -154,6 +154,7 @@ module.exports = {
             (error, data) => {
                 if (error) {
                     logger.error('Error retrieving data from database:', error);
+                    console.log(error);
                     return;
                 }
                 return data[0].officialUpdated;

@@ -46,3 +46,13 @@ d29bbc94-1e45-40e8-8611-6b9f55f361ed [Wed, 08 Apr 2020 14:18:22 GMT]" POST /regi
 8b03a623-5b5c-4e81-9b98-e93d47b4dd9f [Wed, 08 Apr 2020 14:21:08 GMT]" POST /region" 403 183.692 ms
 41164216-383c-44ed-a1c5-38f1e0bf2ad5 [Wed, 08 Apr 2020 14:21:08 GMT]" POST /region" 404 10318.407 ms
 bf7bedbf-2688-4385-b9f1-055187bd245d [Wed, 08 Apr 2020 19:56:07 GMT]" POST /region" 403 202.680 ms
+3ce65642-eee2-4fbd-9791-2145bc2376ef [Thu, 09 Apr 2020 22:56:50 GMT]" POST /region" 400 4.444 ms
+59e26d1a-2c73-42aa-bd70-ba4ba06a43cf [Fri, 10 Apr 2020 20:47:07 GMT]" POST /user/reset_password" 400 156.221 ms
+f6b28d0f-0ddb-4935-ab70-30c947416879 [Fri, 10 Apr 2020 21:23:24 GMT]" POST /user/register" 404 1.194 ms
+2d1e2a08-3b98-4869-a4aa-edcf5709fcb2 [Fri, 10 Apr 2020 21:25:17 GMT]" POST /user/register" 404 1.488 ms
+bff61cb2-0828-469f-996e-404e79d8a1ad [Fri, 10 Apr 2020 21:27:43 GMT]" POST /user/register" 400 14.046 ms
+b1895fe7-5198-4937-b6fa-a4671170747c [Fri, 10 Apr 2020 21:28:34 GMT]" POST /user/register" 400 5.784 ms
+2f23da21-7fb4-4520-87cb-bb7dd30c5643 [Fri, 10 Apr 2020 21:43:56 GMT]" POST /user/authenticate" 400 5.087 ms
+b3328583-15dd-49d0-8b4c-0be93643ccd6 [Fri, 10 Apr 2020 21:44:02 GMT]" POST /user/reset_password" 400 0.823 ms
+e8630b2e-be47-4da4-850c-43c4bc579cce [Fri, 10 Apr 2020 21:44:41 GMT]" POST /user/reset_password" 400 9.497 ms
+c90da07c-fcaf-450c-a55d-8863a05bd32f [Fri, 10 Apr 2020 21:46:04 GMT]" POST /user/reset_password" 400 2.489 ms

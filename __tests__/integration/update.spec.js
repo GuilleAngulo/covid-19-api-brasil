@@ -5,6 +5,7 @@ const request = supertest(app)
 const mongoose = require('../../src/database/index');
 const authorization = require('../../src/config/auth.json').secret;
 
+
 const { regionStatesMock } = require('../../__mocks__/region');
 
 async function removeAllCollections () {
@@ -33,7 +34,7 @@ describe('Update Service', () => {
         await mongoose.connection.close()
       })
 
-    it('should update the database with the array parameter', async () => {       
+    it.skip('should update the database with the given array', async () => {       
         const { updateDatabase } = require('../../src/app/services/UpdateService');
 
         await loadInitialData(regionStatesMock);
@@ -70,4 +71,17 @@ describe('Update Service', () => {
         expect(response2.body.state.officialUpdated).toBe(update[1].officialUpdated);
     });
     
+    /**it('should get the stored official update', async () => {      
+        const State = require('../../src/app/models/State'); 
+        const { getStoredUpdate } = require('../../src/app/services/UpdateService');
+
+        await loadInitialData(regionStatesMock);
+
+        const date = await getStoredUpdate()
+
+        console.log(date);
+
+        expect(date.getMonth()).toBe(Date.now().getMonth());
+    });**/
+
 });

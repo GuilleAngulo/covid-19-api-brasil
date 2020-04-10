@@ -36,3 +36,8 @@
 [2020-04-07T18:00:00.012] [INFO] default - Starting update cron.
 [2020-04-07T18:00:06.684] [INFO] default - Database up to date.
 [2020-04-07T18:00:06.845] [INFO] default - Cron job finished.
+[2020-04-10T18:00:00.008] [INFO] default - Starting update cron.
+[2020-04-10T18:00:09.673] [ERROR] default - ReferenceError: getUpdateAt is not defined
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:17)
+[2020-04-10T18:00:09.834] [INFO] default - Cron job finished.

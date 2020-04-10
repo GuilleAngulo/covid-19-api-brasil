@@ -12,6 +12,7 @@ const { createLogStream } = require('./app/utils/log');
 const regionRoutes = require('./app/routes/RegionRoutes');
 const stateRoutes = require('./app/routes/StateRoutes');
 const statsRoutes = require('./app/routes/StatsRoutes');
+const userRoutes = require('./app/routes/UserRoutes');
 
 
 const app = express();
@@ -42,6 +43,7 @@ app.use(morgan(loggerFormat, {
 app.use('/region', regionRoutes);
 app.use('/state', stateRoutes);
 app.use('/stats', statsRoutes);
+app.use('/user', userRoutes);
 
 app.use(errors());
 
