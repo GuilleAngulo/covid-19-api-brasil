@@ -44,7 +44,7 @@ describe('USER', () => {
         expect(response.body.user.username).toBe(userMock.username);
         expect(response.body.user.email).toBe(userMock.email);
         expect(response.body).toHaveProperty('token');
-        expect(response.status).toBe(200);
+        expect(response.status).toBe(201);
     });
 
     test.skip('POST /users/authenticate', async () => {

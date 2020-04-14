@@ -25,9 +25,9 @@ module.exports = router;
  *  /users/register:
  *    post:
  *      tags: [Users]
- *      summary: Register a new user
+ *      summary: Register User
  *      description: This resource **creates** an individual **user** in the system. The response includes a `token`, a requirement at *POST* or *PUT* requests to **Region** and **State** entities.
- *      operationId: store
+ *      operationId: createUser
  *      requestBody:
  *        required: true
  *        content:
@@ -67,9 +67,9 @@ module.exports = router;
  *  /users/authenticate:
  *    post:
  *      tags: [Users]
- *      summary: Authenticate a user
+ *      summary: Authenticate User
  *      description: This resource **authenticates** a **user** stored in the system. The response includes a `token`, a requirement at *POST* or *PUT* requests to **Region** and **State** entities. 
- *      operationId: authenticate
+ *      operationId: authenticateUser
  *      requestBody:
  *        required: true
  *        content:
@@ -77,7 +77,7 @@ module.exports = router;
  *            schema:
  *              $ref: '#/components/requests/UserAuthenticate'
  *      responses:
- *        "200":
+ *        "201":
  *          description: Successful operation. User created. 
  *          content:
  *            application/json:
@@ -117,7 +117,7 @@ module.exports = router;
  *  /users/forgot_password:
  *    post:
  *      tags: [Users]
- *      summary: Sends a token by email for reseting password
+ *      summary: User Forgot Password
  *      description:  This resource **sends** an **email** *(to user´s registered email account)* with a temporary `token` *(10 mins)* to be used to change user´s password.  
  *      operationId: forgotPassword
  *      requestBody:
@@ -171,7 +171,7 @@ module.exports = router;
  *  /users/reset_password:
  *    post:
  *      tags: [Users]
- *      summary: Resets user password
+ *      summary: Reset User Password
  *      description:  This resource **resets** the user´s **password**. The request must have the temporary `token`, as received by email, and the new password. 
  *      operationId: resetPassword
  *      requestBody:

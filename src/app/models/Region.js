@@ -42,12 +42,9 @@ module.exports = model('Region', RegionSchema);
  *            description: Region description.
  *          states:
  *            type: array
+ *            description: States which are part of the region.
  *            items:
- *              type: string
- *              description: States part of the region.
- *        example:
- *           name: sul
- *           description: Regiao Sul
- *           states: []
+ *              $ref: '#/components/schemas/State'
+ *              
  * 
  */

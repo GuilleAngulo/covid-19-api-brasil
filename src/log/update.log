@@ -138,3 +138,8 @@
     at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
     at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:17)
 [2020-04-13T18:00:09.773] [INFO] default - Cron job finished.
+[2020-04-14T18:44:07.594] [INFO] default - Starting update cron.
+[2020-04-14T18:44:25.271] [ERROR] default - ReferenceError: getUpdateAt is not defined
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:17)
+[2020-04-14T18:44:25.485] [INFO] default - Cron job finished.

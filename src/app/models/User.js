@@ -153,13 +153,6 @@ module.exports = model('User', UserSchema);
  *    responses:
  *      UserResponse:
  *        type: object
- *        example:
- *          user:
- *              _id: 5e94b6de3f16662e2c3133b7
- *              username: JohnDoe
- *              email: johndoe@email.com
- *              createdAt: 2020-04-13T19:00:46.552Z
- *          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTRiNmRlM2YxNjY2MmUyYzMxMzNiNyIsImlhdCI6MTU4NjgwNDQ0NiwiZXhwIjoxNTg2ODkwODQ2fQ.4VaGAIfQXuv2eKd7aIl4LvpMe5ejpCtmLMGRnJl3JMg
  *        properties:
  *          user:
  *            type: object
@@ -187,18 +180,17 @@ module.exports = model('User', UserSchema);
  *              type: string
  *              format: jwt
  *              description: User Token
- * 
+ *        example:
+ *          user:
+ *              _id: 5e94b6de3f16662e2c3133b7
+ *              username: JohnDoe
+ *              email: johndoe@email.com
+ *              createdAt: 2020-04-13T19:00:46.552Z
+ *          token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjVlOTRiNmRlM2YxNjY2MmUyYzMxMzNiNyIsImlhdCI6MTU4NjgwNDQ0NiwiZXhwIjoxNTg2ODkwODQ2fQ.4VaGAIfQXuv2eKd7aIl4LvpMe5ejpCtmLMGRnJl3JMg
  * 
  * 
  *      BadRequest:
- *          example:
- *             statusCode: 400
- *             error: Bad Request
- *             message: \"username\" must be a string
- *             validation: 
- *                source: body
- *                keys: 
- *                  [username]
+ *          type: object
  *          properties:
  *             statusCode:
  *               type: integer
@@ -220,7 +212,14 @@ module.exports = model('User', UserSchema);
  *                      items:
  *                          type: string
  *                          description: Error validation key
- * 
+ *          example:
+ *             statusCode: 400
+ *             error: Bad Request
+ *             message: Validator error description
+ *             validation: 
+ *                source: location
+ *                keys: 
+ *                  [name]
  * 
  *      Success:
  *          type: object

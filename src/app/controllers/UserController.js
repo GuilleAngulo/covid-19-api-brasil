@@ -28,7 +28,7 @@ module.exports = {
             user.__v = undefined;
 
             console.log(`User with email: ${email} created.`);
-            return res.send({ 
+            return res.status(201).send({ 
                 user,
                 token: generateToken({ id: user.id }), 
             });
@@ -57,7 +57,7 @@ module.exports = {
 
         console.log(`User with email: ${email} authenticated.`);
 
-        res.send({ 
+        res.status(200).send({ 
             user,
             token: generateToken({ id: user.id}),
         });

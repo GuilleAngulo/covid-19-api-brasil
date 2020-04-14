@@ -42,7 +42,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error finding the state. Check if the ID is correct.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error finding the state.' });
         }
     },
 
@@ -54,7 +54,7 @@ module.exports = {
 
         if (stateExists) {
             console.log(`State with code: ${code} already exists.`);
-            return res.status(403).json(stateExists);
+            return res.status(409).json(stateExists);
         }
 
         try {
@@ -65,7 +65,7 @@ module.exports = {
             const regionById = await Region.findById(region);
 
             if (!regionById)
-                return res.status(404).send({ error: 'Error finding the region. Check if the ID is correct.' });
+                return res.status(404).send({ error: 'Not found. Error finding the region.' });
 
             regionById.states.push(state);
 
@@ -75,7 +75,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:',error);
-            return res.status(404).send({ error: 'Error creating new state.' });
+            return res.status(500).send({ error: 'Internal Server Error. State creation failed.' });
         }
     },
 
@@ -86,7 +86,7 @@ module.exports = {
                 { ...req.body }, { new: true, useFindAndModify: false });
 
             if (!state)
-                return res.status(404).send({ error: 'Error finding the state. Check if the ID is correct.' });
+                return res.status(500).send({ error: 'Internal Server Error. State creation failed.' });
 
             await state.save();
 
@@ -117,7 +117,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error updating state.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error updating state.' });
         }
     },
 

@@ -226,3 +226,7 @@ c66cea8a-497f-4545-bbb3-db60e1103586 [Mon, 13 Apr 2020 19:56:09 GMT]" POST /user
 8e3da097-bc5b-4570-aeb3-c4bd8e81d0a9 [Mon, 13 Apr 2020 19:59:43 GMT]" POST /users/register" 409 157.492 ms
 53bcd4fb-e1c8-40af-ad28-121f609491dd [Mon, 13 Apr 2020 20:02:30 GMT]" POST /users/register" 400 3.631 ms
 2b75570d-5c1c-4956-a15e-46d7eb40ef92 [Mon, 13 Apr 2020 21:42:52 GMT]" GET /doc" 404 2.604 ms
+bb28bf58-17b3-4dc2-be01-90064f0c6ffe [Tue, 14 Apr 2020 18:58:56 GMT]" GET /states/id/5e7699be9575540a5828ab07" 400 1103.603 ms
+940c310a-6b6c-4b02-9c51-823bae05619b [Tue, 14 Apr 2020 19:21:12 GMT]" GET /states/idfsdf" 400 6.078 ms
+c528ba10-9e89-4d80-abaa-f0933b6a7fd7 [Tue, 14 Apr 2020 21:47:22 GMT]" PUT /states/ac" 401 1.967 ms
+1690ac03-100f-42f0-8b93-cf14983a84da [Tue, 14 Apr 2020 22:29:21 GMT]" GET /doc" 404 1.395 ms
