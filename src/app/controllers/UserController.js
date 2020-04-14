@@ -19,11 +19,14 @@ module.exports = {
 
         try {
             if (await User.findOne({ email }))
-                return res.status(400).send({ error: 'User already exists.'});
+                return res.status(409).send({ error: 'Conflict Error. User already exists.'});
 
             const user = await User.create(req.body);
 
             user.password = undefined;
+            user.updatedAt = undefined;
+            user.__v = undefined;
+
             console.log(`User with email: ${email} created.`);
             return res.send({ 
                 user,
@@ -31,22 +34,26 @@ module.exports = {
             });
 
         } catch (err) {
-            return res.status(400).send({ error: 'Registration failed.' });
+            return res.status(500).send({ error: 'Internal Server Error. Registration failed.' });
         }
     },
 
     async authenticate(req, res) {
         const { email, password } = req.body;
 
+        try {
+
         const user =  await User.findOne({ email }).select('+password');
 
         if (!user)
-            return res.status(400).send({ error: 'User not found.'});
+            return res.status(404).send({ error: 'User not found.'});
 
         if (!await bcrypt.compare(password, user.password))
-            return res.status(400).send({ error: 'Invalid password.'});
+            return res.status(401).send({ error: 'Unauthorized. Invalid password.'});
 
         user.password = undefined;
+        user.updatedAt = undefined;
+        user.__v = undefined;
 
         console.log(`User with email: ${email} authenticated.`);
 
@@ -54,6 +61,10 @@ module.exports = {
             user,
             token: generateToken({ id: user.id}),
         });
+
+        } catch (err) {
+            return res.status(500).send({ error: 'Internal Server Error. Authentication failed.' });
+        }
     },
 
     async forgotPassword(req, res) {
@@ -63,7 +74,7 @@ module.exports = {
             const user = await User.findOne({ email });
 
             if (!user)
-                return res.status(400).send({ error: 'User not found.'});
+                return res.status(404).send({ error: 'User not found.'});
 
 
             const token = crypto.randomBytes(20).toString('hex');
@@ -87,7 +98,7 @@ module.exports = {
 
             }, (err) => {
                 if (err) {
-                    return res.status(400).send({ error: 'Cannot send forgotten password email' });
+                    return res.status(503).send({ error: 'Service Unavailable. Can´t send Password recovery email.' });
                 }
         
                 console.log(`Password recovery email sent to user with email: ${email}.`);
@@ -97,7 +108,7 @@ module.exports = {
 
         } catch (err) {
 
-            res.status(400).send({ error: 'Error on forgot password, try again.'})
+            return res.status(500).send({ error: 'Internal Server Error. Sending recovering email failed.' });
         }
     },
 
@@ -109,15 +120,15 @@ module.exports = {
                 .select('+passwordResetToken passwordResetExpires');
 
             if (!user)
-                return res.status(400).send({ error: 'User not found.'});
+                return res.status(404).send({ error: 'User not found.'});
 
             if (token !== user.passwordResetToken)
-                return res.status(400).send({ error: 'Token invalid.' });
+                return res.status(401).send({ error: 'Unauthorized. Token invalid.' });
             
             const now = new Date();
 
             if (now > user.passwordResetExpires)
-                return res.status(400).send({ error: 'Token expired, generate a new one.' });
+                return res.status(401).send({ error: 'Unauthorized. Token expired, generate a new one.' });
 
             user.password = password;
 
@@ -127,7 +138,7 @@ module.exports = {
             res.status(200).send({ message: 'Password changed successfully.' });
 
         } catch (err) {
-            res.status(400).send({ error: 'Cannot reset passsword, try again.' });
+            res.status(500).send({ error: 'Internal Server Error. Unable to reset passsword.' });
         }
     },
 };

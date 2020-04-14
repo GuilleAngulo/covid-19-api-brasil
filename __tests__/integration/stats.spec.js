@@ -3,9 +3,11 @@ const app = require('../../src/app');
 const request = supertest(app)
 
 const mongoose = require('../../src/database/index');
-const authorization = require('../../src/config/auth.json').secret;
 
 const { regionStatesMock } = require('../../__mocks__/region');
+const { userMock } = require('../../__mocks__/user');
+
+let token;
 
 async function removeAllCollections () {
     const collections = Object.keys(mongoose.connection.collections)
@@ -17,13 +19,22 @@ async function removeAllCollections () {
 
 async function loadInitialData(regionMock) {
     return await request
-        .post('/region')
-        .set('Authorization', authorization)
+        .post('/regions')
+        .set('Authorization', `Bearer ${token}`)
         .send(regionMock);
 }
 
 
-describe('REGION', () => {
+describe('STATS', () => {
+
+    beforeAll(async () => {
+        const response = await request
+            .post('/users/register')
+            .send(userMock);
+    
+        token = response.body.token;
+
+    });
 
     beforeEach(async () => {
         await removeAllCollections();

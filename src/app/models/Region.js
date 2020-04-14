@@ -20,3 +20,34 @@ const RegionSchema = new Schema({
 });
 
 module.exports = model('Region', RegionSchema);
+
+
+/**
+ * @swagger
+ *  components:
+ * 
+ *    schemas:
+ *      Region:
+ *        type: object
+ *        required:
+ *          - name
+ *          - description
+ *          - states
+ *        properties:
+ *          name:
+ *            type: string
+ *            description: Region identification name.
+ *          description:
+ *            type: string
+ *            description: Region description.
+ *          states:
+ *            type: array
+ *            items:
+ *              type: string
+ *              description: States part of the region.
+ *        example:
+ *           name: sul
+ *           description: Regiao Sul
+ *           states: []
+ * 
+ */

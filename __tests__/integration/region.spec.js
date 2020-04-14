@@ -3,9 +3,11 @@ const app = require('../../src/app');
 const request = supertest(app)
 
 const mongoose = require('../../src/database/index');
-const authorization = require('../../src/config/auth.json').secret;
 
 const { regionMock1, regionMock2, regionUpdateMock } = require('../../__mocks__/region');
+const { userMock } = require('../../__mocks__/user');
+
+let token;
 
 async function removeAllCollections () {
     const collections = Object.keys(mongoose.connection.collections)
@@ -17,13 +19,21 @@ async function removeAllCollections () {
 
 async function loadInitialData(regionMock) {
     return await request
-        .post('/region')
-        .set('Authorization', authorization)
+        .post('/regions')
+        .set('Authorization', `Bearer ${token}`)
         .send(regionMock);
 }
 
-
 describe('REGION', () => {
+    
+    beforeAll(async () => {
+        const response = await request
+            .post('/users/register')
+            .send(userMock);
+    
+        token = response.body.token;
+
+    });
 
     beforeEach(async () => {
         await removeAllCollections();
@@ -33,7 +43,7 @@ describe('REGION', () => {
         await mongoose.connection.close()
       })
 
-    test.skip('GET /region', async () => {
+    test.skip('GET /regions', async () => {
         await loadInitialData(regionMock1);
         
         const response = await request
@@ -48,11 +58,11 @@ describe('REGION', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('GET /region/:name', async () => {
+    test.skip('GET /regions/:name', async () => {
         await loadInitialData(regionMock1);
         
         const response = await request
-            .get(`/region/${regionMock1.name}`);
+            .get(`/regions/${regionMock1.name}`);
 
         expect(response.body.region).toHaveProperty('_id');
         expect(response.body.region._id).toHaveLength(24);
@@ -63,12 +73,12 @@ describe('REGION', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('GET /region/id/:regionId', async () => {
+    test.skip('GET /regions/id/:regionId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const regionId = loadResponse.body.region._id;
         
         const response = await request
-            .get(`/region/id/${regionId}`);
+            .get(`/regions/id/${regionId}`);
 
         expect(response.body.region).toHaveProperty('_id');
         expect(response.body.region._id).toHaveLength(24);
@@ -79,10 +89,10 @@ describe('REGION', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('POST /region', async () => {
+    test.skip('POST /regions', async () => {
         const response = await request
-            .post('/region')
-            .set('Authorization', authorization)
+            .post('/regions')
+            .set('Authorization', `Bearer ${token}`)
             .send(regionMock2);
 
         expect(response.body.region).toHaveProperty('_id');
@@ -95,13 +105,13 @@ describe('REGION', () => {
         expect(response.status).toBe(201);
     });
 
-    test.skip('PUT /region/:regionId', async () => {
+    test.skip('PUT /regions/:regionId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const regionId = loadResponse.body.region._id;
         
         const response = await request
-            .put(`/region/${regionId}`)
-            .set('Authorization', authorization)
+            .put(`/regions/${regionId}`)
+            .set('Authorization', `Bearer ${token}`)
             .send(regionUpdateMock);
 
         expect(response.body.region).toHaveProperty('_id');
@@ -113,13 +123,13 @@ describe('REGION', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('PUT /region/:regionId', async () => {
+    test.skip('PUT /regions/:regionId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const regionId = loadResponse.body.region._id;
         
         const response = await request
-            .put(`/region/${regionId}`)
-            .set('Authorization', authorization)
+            .put(`/regions/${regionId}`)
+            .set('Authorization', `Bearer ${token}`)
             .send(regionUpdateMock);
 
         expect(response.body.region).toHaveProperty('_id');
@@ -131,13 +141,13 @@ describe('REGION', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('DELETE /region/:regionId', async () => {
+    test.skip('DELETE /regions/:regionId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const regionId = loadResponse.body.region._id;
         
         const response = await request
-            .delete(`/region/${regionId}`)
-            .set('Authorization', authorization);
+            .delete(`/regions/${regionId}`)
+            .set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('Region removed correctly.');

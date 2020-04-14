@@ -1,12 +1,13 @@
 const supertest = require('supertest');
 const app = require('../../src/app');
-const request = supertest(app)
+const request = supertest(app);
 
 const mongoose = require('../../src/database/index');
-const authorization = require('../../src/config/auth.json').secret;
-
 
 const { regionStatesMock } = require('../../__mocks__/region');
+const { userMock } = require('../../__mocks__/user');
+
+let token;
 
 async function removeAllCollections () {
     const collections = Object.keys(mongoose.connection.collections);
@@ -18,13 +19,20 @@ async function removeAllCollections () {
 
 async function loadInitialData(regionMock) {
     return await request
-        .post('/region')
-        .set('Authorization', authorization)
+        .post('/regions')
+        .set('Authorization', `Bearer ${token}`)
         .send(regionMock);
 }
 
-
 describe('Update Service', () => {
+
+    beforeAll(async () => {
+        const response = await request
+            .post('/users/register')
+            .send(userMock);
+        token = response.body.token;
+
+    });
 
     beforeEach(async () => {
         await removeAllCollections();
@@ -34,7 +42,7 @@ describe('Update Service', () => {
         await mongoose.connection.close()
       })
 
-    it.skip('should update the database with the given array', async () => {       
+    test.skip('should update the database with the given array', async () => {       
         const { updateDatabase } = require('../../src/app/services/UpdateService');
 
         await loadInitialData(regionStatesMock);
@@ -57,11 +65,10 @@ describe('Update Service', () => {
         await updateDatabase(update);
 
         const response1 = await request
-            .get(`/state/${update[0].code}`);
+            .get(`/states/${update[0].code}`);
 
         const response2 = await request
-            .get(`/state/${update[1].code}`);
-
+            .get(`/states/${update[1].code}`);
 
         expect(response1.body.state.confirmed).toBe(update[0].confirmed);
         expect(response2.body.state.confirmed).toBe(update[1].confirmed);
@@ -70,18 +77,5 @@ describe('Update Service', () => {
         expect(response1.body.state.officialUpdated).toBe(update[0].officialUpdated);
         expect(response2.body.state.officialUpdated).toBe(update[1].officialUpdated);
     });
-    
-    /**it('should get the stored official update', async () => {      
-        const State = require('../../src/app/models/State'); 
-        const { getStoredUpdate } = require('../../src/app/services/UpdateService');
-
-        await loadInitialData(regionStatesMock);
-
-        const date = await getStoredUpdate()
-
-        console.log(date);
-
-        expect(date.getMonth()).toBe(Date.now().getMonth());
-    });**/
 
 });

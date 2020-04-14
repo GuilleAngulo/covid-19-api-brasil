@@ -13,6 +13,7 @@ const regionRoutes = require('./app/routes/RegionRoutes');
 const stateRoutes = require('./app/routes/StateRoutes');
 const statsRoutes = require('./app/routes/StatsRoutes');
 const userRoutes = require('./app/routes/UserRoutes');
+const documentationRoutes = require('./app/routes/DocumentationRoutes');
 
 
 const app = express();
@@ -40,10 +41,12 @@ app.use(morgan(loggerFormat, {
     stream: accessStream,
 }));
 
-app.use('/region', regionRoutes);
-app.use('/state', stateRoutes);
+app.use('/regions', regionRoutes);
+app.use('/states', stateRoutes);
 app.use('/stats', statsRoutes);
-app.use('/user', userRoutes);
+app.use('/users', userRoutes);
+
+app.use(documentationRoutes);
 
 app.use(errors());
 

@@ -18,7 +18,7 @@ async function removeAllCollections () {
 
 async function loadInitialData(userMock) {
     return await request
-        .post('/user/register')
+        .post('/users/register')
         .send(userMock);
 }
 
@@ -33,10 +33,10 @@ describe('USER', () => {
         await mongoose.connection.close()
     });
 
-    test.skip('POST /user/register', async () => {
+    test.skip('POST /users/register', async () => {
         
         const response = await request
-            .post('/user/register')
+            .post('/users/register')
             .send(userMock);
         
         expect(response.body.user).toHaveProperty('_id');
@@ -47,12 +47,12 @@ describe('USER', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('POST /user/authenticate', async () => {
+    test.skip('POST /users/authenticate', async () => {
         
         await loadInitialData(userMock);
 
         const response = await request
-            .post('/user/authenticate')
+            .post('/users/authenticate')
             .send({
                 email: userMock.email,
                 password: userMock.password,
@@ -66,24 +66,24 @@ describe('USER', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('POST /user/forgot_password', async () => {
+    test.skip('POST /users/forgot_password', async () => {
         
         await loadInitialData(userMock);
 
         const response = await request
-            .post('/user/forgot_password')
+            .post('/users/forgot_password')
             .send({ email: userMock.email });
         
         expect(response.body.message).toBe('Password recovery email sent successfully.');
         expect(response.status).toBe(200);
     });
 
-    test('POST /user/reset_password', async () => {
+    test.skip('POST /users/reset_password', async () => {
         
         await loadInitialData(userMock);
 
         await request
-            .post('/user/forgot_password')
+            .post('/users/forgot_password')
             .send({ email: userMock.email });
 
         let user = await User
@@ -91,7 +91,7 @@ describe('USER', () => {
             .select('+passwordResetToken');
 
         const response = await request
-            .post('/user/reset_password')
+            .post('/users/reset_password')
             .send({
                 email: userMock.email,
                 password: 'newPassword',

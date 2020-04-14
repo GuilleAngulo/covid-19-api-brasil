@@ -3,10 +3,12 @@ const app = require('../../src/app');
 const request = supertest(app)
 
 const mongoose = require('../../src/database/index');
-const authorization = require('../../src/config/auth.json').secret;
 
 const { stateUpdateMock } = require('../../__mocks__/state');
 const { regionMock1 } = require('../../__mocks__/region');
+const { userMock } = require('../../__mocks__/user');
+
+let token;
 
 async function removeAllCollections () {
     const collections = Object.keys(mongoose.connection.collections)
@@ -18,13 +20,22 @@ async function removeAllCollections () {
 
 async function loadInitialData(regionMock) {
     return await request
-        .post('/region')
-        .set('Authorization', authorization)
+        .post('/regions')
+        .set('Authorization', `Bearer ${token}`)
         .send(regionMock);
 }
 
 
 describe('STATE', () => {
+
+    beforeAll(async () => {
+        const response = await request
+            .post('/users/register')
+            .send(userMock);
+    
+        token = response.body.token;
+
+    });
 
     beforeEach(async () => {
         await removeAllCollections();
@@ -34,11 +45,11 @@ describe('STATE', () => {
         await mongoose.connection.close()
     });
 
-    test.skip('GET /state', async () => {
+    test.skip('GET /states', async () => {
         await loadInitialData(regionMock1);
         
         const response = await request
-            .get('/state');
+            .get('/states');
 
         expect(response.body.states[0]).toHaveProperty('_id');
         expect(response.body.states[0]._id).toHaveLength(24);
@@ -54,13 +65,13 @@ describe('STATE', () => {
         expect(response.status).toBe(200);
     });
       
-    test.skip('GET state/id/:stateId', async () => {
+    test.skip('GET states/id/:stateId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const stateId = loadResponse.body.region.states[0]._id;
         const regionId = loadResponse.body.region._id;
 
         const response = await request
-            .get(`/state/id/${stateId}`);
+            .get(`/states/id/${stateId}`);
 
         expect(response.body.state).toHaveProperty('_id');
         expect(response.body.state._id).toHaveLength(24);
@@ -73,12 +84,12 @@ describe('STATE', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('GET state/:code', async () => {
+    test.skip('GET states/:code', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const stateCode = loadResponse.body.region.states[0].code;
 
         const response = await request
-            .get(`/state/${stateCode}`);
+            .get(`/states/${stateCode}`);
 
         expect(response.body.state).toHaveProperty('_id');
         expect(response.body.state._id).toHaveLength(24);
@@ -91,13 +102,13 @@ describe('STATE', () => {
 
 
     
-    test.skip('POST /state', async () => {
+    test.skip('POST /states', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const regionId = loadResponse.body.region._id;
 
         const response = await request
-            .post('/state')
-            .set('Authorization', authorization)
+            .post('/states')
+            .set('Authorization', `Bearer ${token}`)
             .send({ 
                 name: 'State 2',
                 code: 'SA',
@@ -115,13 +126,13 @@ describe('STATE', () => {
     });
 
 
-    test.skip('PUT state/id/:stateId', async () => {
+    test.skip('PUT states/id/:stateId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const stateId = loadResponse.body.region.states[0]._id;
         
         const response = await request
-            .put(`/state/id/${stateId}`)
-            .set('Authorization', authorization)
+            .put(`/states/id/${stateId}`)
+            .set('Authorization', `Bearer ${token}`)
             .send(stateUpdateMock);
 
         expect(response.body.state).toHaveProperty('_id');
@@ -133,13 +144,13 @@ describe('STATE', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('PUT state/:code', async () => {
+    test.skip('PUT states/:code', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const stateCode = loadResponse.body.region.states[0].code;
         
         const response = await request
-            .put(`/state/${stateCode}`)
-            .set('Authorization', authorization)
+            .put(`/states/${stateCode}`)
+            .set('Authorization', `Bearer ${token}`)
             .send(stateUpdateMock);
 
         expect(response.body.state).toHaveProperty('_id');
@@ -151,13 +162,13 @@ describe('STATE', () => {
         expect(response.status).toBe(200);
     });
 
-    test.skip('DELETE /state/:stateId', async () => {
+    test.skip('DELETE /states/:stateId', async () => {
         const loadResponse = await loadInitialData(regionMock1);
         const stateId = loadResponse.body.region.states[0]._id;
         
         const response = await request
-            .delete(`/state/${stateId}`)
-            .set('Authorization', authorization);
+            .delete(`/states/${stateId}`)
+            .set('Authorization', `Bearer ${token}`);
 
         expect(response.status).toBe(200);
         expect(response.body.message).toBe('State removed correctly.');

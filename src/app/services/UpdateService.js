@@ -91,7 +91,7 @@ module.exports = {
             }
         } catch (error) {
             logger.error('Error parsing CSV file:', error);
-            console.error('Error parsing CSV file. Check the log.');
+            console.error('Error parsing CSV file. Check the log.', error);
         }
         //Remove CSV File
         cleanDirectory(directoryPath);

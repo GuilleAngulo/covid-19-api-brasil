@@ -41,3 +41,100 @@
     at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
     at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:17)
 [2020-04-10T18:00:09.834] [INFO] default - Cron job finished.
+[2020-04-11T17:43:07.711] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:43:07.728] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:45:25.596] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:45:25.625] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:47:45.650] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:47:45.704] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:48:40.974] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T17:48:40.989] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:40:18.276] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:40:18.286] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:44:53.441] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:44:53.460] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:45:34.995] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:45:35.004] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:46:41.393] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:46:41.406] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:47:32.704] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:47:32.732] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:48:22.911] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:48:22.932] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:50:16.658] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:50:16.738] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:51:39.284] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T18:51:39.299] [ERROR] default - Error updating state: TypeError: Cannot read property 'save' of null
+    at D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:111:25
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T19:32:53.616] [ERROR] default - Error parsing CSV file: TypeError: date.getDate is not a function
+    at formatDate (D:\Guillermo\Informatica\covid-19-api\src\app\utils\date.js:3:26)
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:71:26)
+    at Object.<anonymous> (D:\Guillermo\Informatica\covid-19-api\__tests__\integration\update.spec.js:101:25)
+    at Object.asyncJestTest (D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (<anonymous>)
+    at mapper (D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-11T19:38:55.795] [ERROR] default - Error parsing CSV file: TypeError: date.getDate is not a function
+    at formatDate (D:\Guillermo\Informatica\covid-19-api\src\app\utils\date.js:3:26)
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:71:26)
+    at Object.<anonymous> (D:\Guillermo\Informatica\covid-19-api\__tests__\integration\update.spec.js:105:25)
+    at Object.asyncJestTest (D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\jasmineAsyncInstall.js:100:37)
+    at D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\queueRunner.js:45:12
+    at new Promise (<anonymous>)
+    at mapper (D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\queueRunner.js:28:19)
+    at D:\Guillermo\Informatica\covid-19-api\node_modules\jest-jasmine2\build\queueRunner.js:75:41
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+[2020-04-13T18:00:00.021] [INFO] default - Starting update cron.
+[2020-04-13T18:00:09.561] [ERROR] default - ReferenceError: getUpdateAt is not defined
+    at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:17)
+[2020-04-13T18:00:09.773] [INFO] default - Cron job finished.
