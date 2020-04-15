@@ -80,7 +80,7 @@ describe('STATE', () => {
         expect(response.body.state.description).toBe(regionMock1.states[0].description);
         expect(response.body.state.code).toBe(regionMock1.states[0].code);
         expect(response.body.state.population).toBe(regionMock1.states[0].population);
-        expect(response.body.state.region).toBe(regionId);
+        expect(response.body.state.region._id).toBe(regionId);
         expect(response.status).toBe(200);
     });
 

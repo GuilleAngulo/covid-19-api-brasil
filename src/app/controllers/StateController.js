@@ -11,12 +11,15 @@ module.exports = {
             return res.status(200).send({ states });
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error listing states.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error listing states.' });
         }
     },
     async find(req, res) {
         try {
-            const state = await State.findById(req.params.stateId);
+            const state = await State.findById(
+                req.params.stateId, 
+                'name code population confirmed deaths officialUpdated')
+                    .populate({ path: 'region', select: 'description' });
 
             if (!state)
                 return res.status(400).json({ error: 'State ID not found.'});
@@ -50,10 +53,13 @@ module.exports = {
 
         const { code, region } = req.body;
 
-        const stateExists = await State.findOne({ code })
+        const stateExists = await State.findOne(
+            { code }, 
+            'name code population confirmed deaths officialUpdated')
+                .populate({ path: 'region', select: 'description' });
 
         if (stateExists) {
-            console.log(`State with code: ${code} already exists.`);
+            console.log(`Conflict error. State with code: ${code} already exists.`);
             return res.status(409).json(stateExists);
         }
 
@@ -71,7 +77,12 @@ module.exports = {
 
             await regionById.save();
 
-            return res.status(201).send({ state });
+            const stateCreated = await State.findOne(
+                { code }, 
+                'name code population confirmed deaths officialUpdated')
+                    .populate({ path: 'region', select: 'description' });
+
+            return res.status(201).send({ stateCreated });
 
         } catch (error) {
             console.log('Error:',error);
@@ -83,7 +94,12 @@ module.exports = {
         try {
 
             const state = await State.findByIdAndUpdate(req.params.stateId, 
-                { ...req.body }, { new: true, useFindAndModify: false });
+                { ...req.body }, { 
+                    new: true, 
+                    useFindAndModify: false,
+                    select: 'name code population confirmed deaths officialUpdated',
+                }).populate({ path: 'region', select: 'description' });
+            
 
             if (!state)
                 return res.status(500).send({ error: 'Internal Server Error. State creation failed.' });
@@ -105,7 +121,11 @@ module.exports = {
             const state = await State.findOneAndUpdate(
                 { code: req.params.code.toUpperCase() }, 
                 { ...req.body }, 
-                { new: true, useFindAndModify: false });
+                { 
+                    new: true, 
+                    useFindAndModify: false,
+                    select: 'name code population confirmed deaths officialUpdated',
+                }).populate({ path: 'region', select: 'description' });
 
             if (!state)
                 return res.status(404).send({ error: 'Error finding the state. Check if the code is correct.' });
@@ -126,7 +146,7 @@ module.exports = {
         try {
             await State.findByIdAndRemove(req.params.stateId, { useFindAndModify: false });
 
-            return res.status(200).send({ message: 'State removed correctly.' });
+            return res.status(200).send({ message: 'Successful operation. State removed correctly.' });
 
         } catch (error) {
             console.log('Error:', error);

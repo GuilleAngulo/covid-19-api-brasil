@@ -46,11 +46,16 @@ module.exports = model('State', StateSchema);
  *      State:
  *        type: object
  *        required:
+ *          - _id
  *          - name
  *          - code
  *          - region
  *          - population
  *        properties:
+ *          _id:
+ *             type: string
+ *             description: State ID.
+ *             format: uuid
  *          name:
  *            type: string
  *            description: State Name.
@@ -141,7 +146,8 @@ module.exports = model('State', StateSchema);
  *          example:
  *              confirmed: 1394
  *              deaths: 64
- *              officialUpdated: 2020-04-05T20:00:00.000Z             
+ *              officialUpdated: 2020-04-05T20:00:00.000Z  
+ *              population: 17264943           
  * 
  *    responses:
  *      States:
@@ -201,25 +207,71 @@ module.exports = model('State', StateSchema);
  *           confirmed: 1394
  *           deaths: 64
  *           officialUpdated: 2020-04-05T20:00:00.000Z
+ * 
+ * 
+ *      StateSimple:
+ *        type: object
+ *        properties:
+ *          _id:
+ *             type: string
+ *             description: State ID.
+ *             format: uuid
+ *          name:
+ *             type: string
+ *             description: State Name.
+ *          code:
+ *             type: string
+ *             length: 2
+ *             description: State Code (UF).
+ *          population:
+ *              type: integer
+ *              description: State Number of People.
+ *              minimum: 1
+ *          confirmed:
+ *              type: integer
+ *              description: Number of people confirmed to have Covid-19.
+ *          deaths:
+ *              type: integer
+ *              description: Number of people deceased caused by Covid-19.
+ *          officialUpdated:
+ *              type: string
+ *              format: date-time
+ *              description: Date of last official data update.
+ *        example:
+ *           _id: 5e76a10c9575540a5828ab1f
+ *           name: Rio de Janeiro
+ *           code: RJ
+ *           population: 17264943
+ *           confirmed: 1394
+ *           deaths: 64
+ *           officialUpdated: 2020-04-05T20:00:00.000Z
  *  
  *    securitySchemes:
  *      token:
  *          in: header
  *          name: Authorization
- *          description: Bearer Token
+ *          description: Token
+ *          required: true
  *          type: http
  *          scheme: bearer
- *          required: true
+ *          bearerFormat: JWT 
  * 
  *    parameters:
  *      code:
  *          in: path
  *          name: code
  *          required: true
- *          description: State Code (UF)
+ *          description: State Code (UF).
  *          schema:
  *            type: string
- *            enum: [AC, AL, AP ,AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]
- *     
- * 
+ *            enum: [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]
+ *    
+ *      stateId: 
+ *          in: path
+ *          name: stateId
+ *          required: true
+ *          description: State ID.
+ *          schema:
+ *            type: string
+ *            format: uuid
  */

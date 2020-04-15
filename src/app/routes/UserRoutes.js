@@ -118,7 +118,7 @@ module.exports = router;
  *    post:
  *      tags: [Users]
  *      summary: User Forgot Password
- *      description:  This resource **sends** an **email** *(to user´s registered email account)* with a temporary `token` *(10 mins)* to be used to change user´s password.  
+ *      description:  This resource **sends** an **email**, to user´s registered email account, with a temporary `token` *(10 mins)* to be used to change user´s password.  
  *      operationId: forgotPassword
  *      requestBody:
  *        required: true

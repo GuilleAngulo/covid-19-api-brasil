@@ -36,15 +36,100 @@ module.exports = model('Region', RegionSchema);
  *        properties:
  *          name:
  *            type: string
- *            description: Region identification name.
+ *            description: Region Name.
  *          description:
  *            type: string
- *            description: Region description.
+ *            description: Region Description.
  *          states:
  *            type: array
- *            description: States which are part of the region.
+ *            description: States array list.
  *            items:
- *              $ref: '#/components/schemas/State'
+ *              $ref: '#/components/schemas/StateSimple'
  *              
+ * 
+ * 
+ *    responses:
+ *      Regions:
+ *          type: object
+ *          properties:
+ *             regions:
+ *                 type: array
+ *                 description: Region array list.
+ *                 items:
+ *                  type: object
+ *                  properties:
+ *                     _id:
+ *                         type: string
+ *                         description: Region ID.
+ *                         format: uuid
+ *                         example: 5e7699be9575540a5828ab07
+ *                     name:
+ *                         type: string
+ *                         description: Region Name.
+ *                         example: sudeste
+ *                     description:
+ *                         type: string
+ *                         description: Region Description.
+ *                         example: Região Sudeste
+ *                     confirmed:
+ *                         type: integer
+ *                         description: Number of people confirmed to have Covid-19.
+ *                         example: 6678
+ *                     deaths:
+ *                         type: integer
+ *                         description: Number of people deceased caused by Covid-19.
+ *                         example: 351
+ *                     states:
+ *                         type: array
+ *                         description: States array list.
+ *                         items:
+ *                             $ref: '#/components/responses/StateSimple'
+ * 
+ *      Region:
+ *          type: object
+ *          properties:
+ *             region:
+ *                 type: object
+ *                 properties:
+ *                     _id:
+ *                         type: string
+ *                         description: Region ID.
+ *                         format: uuid
+ *                         example: 5e7699be9575540a5828ab07
+ *                     name:
+ *                         type: string
+ *                         description: Region Name.
+ *                         example: sudeste
+ *                     description:
+ *                         type: string
+ *                         description: Region Description.
+ *                         example: Região Sudeste
+ *                     confirmed:
+ *                         type: integer
+ *                         description: Number of people confirmed to have Covid-19.
+ *                         example: 6678
+ *                     deaths:
+ *                         type: integer
+ *                         description: Number of people deceased caused by Covid-19.
+ *                         example: 351
+ *                     states:
+ *                         type: array
+ *                         description: States array list.
+ *                         items:
+ *                             $ref: '#/components/responses/StateSimple'
+ * 
+ *    parameters:
+ *      name:
+ *          in: path
+ *          name: name
+ *          required: true
+ *          description: Region Name.
+ *          schema:
+ *            type: string
+ *            enum: [norte, nordeste, sudeste, centro-oeste, sul]               
+ *                    
+ *                  
+ *              
+ * 
  * 
  */

@@ -7,18 +7,18 @@ module.exports = {
     async index(req, res) {
         try {
             const regions = await Region.find({}, 'name description')
-            .populate({ path: 'states', select: 'name code confirmed deaths' });
+            .populate({ path: 'states', select: 'name code population confirmed deaths officialUpdated' });
 
             return res.status(200).send({ regions });
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error listing regions.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error listing regions.' });
         }
     },
     async find(req, res) {
         try {
             const regionDB = await Region.findById(req.params.regionId, 'name description')
-                .populate({ path: 'states', select: 'name code confirmed deaths' });
+                .populate({ path: 'states', select: 'name code population confirmed deaths officialUpdated' });
 
             if (!regionDB)
                 return res.status(404).json({ error: 'Region not found.'});
@@ -57,7 +57,7 @@ module.exports = {
             const regionDB = await Region.findOne(
                 { name: req.params.name.toLowerCase() }, 
                 'name description')
-                    .populate({ path: 'states', select: 'name code confirmed deaths' });
+                    .populate({ path: 'states', select: 'name code population confirmed deaths officialUpdated' });
             
             if (!regionDB)
                 return res.status(404).json({ error: 'Region not found.'});
@@ -87,7 +87,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error finding the region. Check if the ID is correct.' });
+            return res.status(5004).send({ error: 'Internal Server Error. Error finding the region.' });
         }
     },
 

@@ -41,13 +41,21 @@ module.exports = router;
  *            application/json:
  *              schema:
  *                  $ref: '#/components/responses/States'
+ *        "500":
+ *          description: Internal Server Error. Error listing states.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/responses/Error'
+ *              example: 
+ *                  error: Internal Server Error. Error listing states.
  *    post:
  *      tags: [States]
  *      summary: Create State
- *      description: This resource **creates** a new **state** in the system. The request needs to include a `token` authorization at header.
+ *      description: This resource **creates** a new **state** in the system. The request needs to include a the Bearer`token` at header, generated at Authenticate User.
  *      operationId: createState
- *      parameters:
- *         - $ref: '#/components/securitySchemes/token'
+ *      security:
+ *          - token: []
  *      requestBody:
  *        required: true
  *        content:
@@ -76,15 +84,13 @@ module.exports = router;
  *              example: 
  *                  error: Not found. Error finding the region.
  *        "409":
- *          description: Conflict error. State already exists.
+ *          description: Conflict error. State already exists. Returns existing State.
  *          content:
  *            application/json:
  *              schema:
- *                 $ref: '#/components/responses/Error'
- *              example: 
- *                  error: Conflict error. State already exists.
+ *                 $ref: '#/components/responses/State'
  *        "500":
- *          description: Internal Server Error. Registration failed.
+ *          description: Internal Server Error. State creation failed.
  *          content:
  *            application/json:
  *              schema:
@@ -96,7 +102,7 @@ module.exports = router;
  *    get:
  *      tags: [States]
  *      summary: Get State by Code
- *      description: This resource finds and returns a **state** by `code` (UF code).
+ *      description: This resource **finds** and returns a **state** by its `code` (UF code).
  *      operationId: getStateByCode
  *      parameters:
  *        - $ref: '#/components/parameters/code'
@@ -124,10 +130,11 @@ module.exports = router;
  *    put:
  *      tags: [States]
  *      summary: Update State by Code
- *      description: This resource finds and updates a **state** by `code` (UF code) with body parameters. The request needs to include a `token` authorization at header.
+ *      description: This resource finds and **updates** a **state** by `code` (UF code) with body request parameters. The request needs to include a the Bearer`token` at header, generated at Authenticate User.
  *      operationId: updateStateByCode
+ *      security:
+ *          - token: []
  *      parameters:
- *         - $ref: '#/components/securitySchemes/token'
  *         - $ref: '#/components/parameters/code'
  *      requestBody:
  *        required: true
@@ -158,4 +165,33 @@ module.exports = router;
  *                 $ref: '#/components/responses/Error'
  *              example: 
  *                  error: Internal Server Error. Error updating state.
+ *
+ *  /states/{stateId}:
+ *    delete:
+ *      tags: [States]
+ *      summary: Remove State
+ *      description: This resource finds and **deletes** a **state**. The request needs to include a the Bearer`token` at header, generated at Authenticate User.
+ *      operationId: deleteState
+ *      security:
+ *          - token: []
+ *      parameters:
+ *         - $ref: '#/components/parameters/stateId'
+ *      responses:
+ *         "200":
+ *            description: Successful operation. State removed correctly.
+ *            content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/responses/Success'
+ *                  example: 
+ *                      message: Successful operation. State removed correctly.
+ * 
+ *         "404":
+ *            description: Not found. Error finding the state.
+ *            content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/responses/Error'
+ *                  example: 
+ *                      error: Not found. Error finding the state.    
  */
