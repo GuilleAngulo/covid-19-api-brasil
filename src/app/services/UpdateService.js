@@ -62,9 +62,9 @@ module.exports = {
         //console.log(job.nextDates(5).map(date => date.toString()))  
         job.start();
     },
+}
 
-
-    csvToJSON(update, directoryPath) {
+    function csvToJSON(update, directoryPath) {
         console.log('Parsing CSV file to JSON...');
         const result = [];
         try {
@@ -96,9 +96,9 @@ module.exports = {
         //Remove CSV File
         cleanDirectory(directoryPath);
         return result;
-    },
+    }
 
-    async updateDatabase(data) {
+    async function updateDatabase(data) {
         console.log('Updating database...');
         data.map(async (stateUpdate) => {
         try {
@@ -115,10 +115,10 @@ module.exports = {
         }
         });
         console.log('Database succesfully updated');
-    },
+    }
 
 
-    async downloadCSVFile(page, elementXPath) {
+    async function downloadCSVFile(page, elementXPath) {
             if (fs.existsSync(TEMP_PATH)) cleanDirectory(TEMP_PATH);
             else createDirectory(TEMP_PATH);
             const [el] = await page.$x(elementXPath);
@@ -126,9 +126,9 @@ module.exports = {
             await el.click({ delay: 100 });
             console.log('Downloading CSV file...');
             await page.waitFor(5000);
-    },
+    }
 
-    async getUpdateAt(page, XPath) {
+    async function getUpdateAt(page, XPath) {
         console.log('Getting update time...');
         try {
             const [el] = await page.$x(XPath);
@@ -138,9 +138,9 @@ module.exports = {
         } catch (error) {
             logger.error('Error getting update time:', error);
         }
-    },
+    }
 
-    async getStoredUpdate() {
+    async function getStoredUpdate() {
         console.log('Getting stored update time...');
         await State.aggregate(
             [
@@ -160,6 +160,5 @@ module.exports = {
                 return data[0].officialUpdated;
             }
         );
-    },
+    }
 
-}

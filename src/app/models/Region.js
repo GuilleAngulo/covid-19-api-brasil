@@ -30,10 +30,15 @@ module.exports = model('Region', RegionSchema);
  *      Region:
  *        type: object
  *        required:
+ *          - _id
  *          - name
  *          - description
  *          - states
  *        properties:
+ *          _id:
+ *             type: string
+ *             description: Region ID.
+ *             format: uuid
  *          name:
  *            type: string
  *            description: Region Name.
@@ -44,9 +49,50 @@ module.exports = model('Region', RegionSchema);
  *            type: array
  *            description: States array list.
  *            items:
- *              $ref: '#/components/schemas/StateSimple'
- *              
+ *              $ref: '#/components/responses/StateSimple'
+ *    
+ *    requests:
+ *      RegionCreate:
+ *          type: object
+ *          required:
+ *          - name
+ *          - description
+ *          - states
+ *          properties:          
+ *              name:
+ *                  type: string
+ *                  description: Region Name.
+ *                  enum: [norte, nordeste, sudeste, centro-oeste, sul]
+ *                  example: sudeste
+ *              description:
+ *                  type: string
+ *                  description: Region Description
+ *                  example: Região Sudeste
+ *              states:
+ *                  type: array
+ *                  description: States belonging to the Region. Can be an empty array.
+ *                  items:
+ *                      $ref: '#/components/requests/StateCreate'
  * 
+ *      RegionUpdate:
+ *          type: object
+ *          properties:          
+ *              name:
+ *                  type: string
+ *                  description: Region Name.
+ *                  enum: [norte, nordeste, sudeste, centro-oeste, sul]
+ *                  example: sudeste
+ *              description:
+ *                  type: string
+ *                  description: Region Description
+ *                  example: Região Sudeste
+ *              states:
+ *                  type: array
+ *                  description: States belonging to the Region. Can be an empty array.
+ *                  items:
+ *                      $ref: '#/components/requests/StateCreate'
+ *                  
+ *              
  * 
  *    responses:
  *      Regions:
@@ -118,6 +164,32 @@ module.exports = model('Region', RegionSchema);
  *                         items:
  *                             $ref: '#/components/responses/StateSimple'
  * 
+ *      RegionSimple:
+ *          type: object
+ *          properties:
+ *                 _id:
+ *                   type: string
+ *                   description: Region ID.
+ *                   format: uuid
+ *                   example: 5e7699be9575540a5828ab07
+ *                 name:
+ *                   type: string
+ *                   description: Region Name.
+ *                   example: sudeste
+ *                 description:
+ *                   type: string
+ *                   description: Region Description.
+ *                   example: Região Sudeste
+ *                 states:
+ *                   type: array
+ *                   description: States array list.
+ *                   items:
+ *                        type: string
+ *                        name: _id
+ *                        description: Region ID.
+ *                        example: 5e76a2319575540a5828ab26
+ * 
+ * 
  *    parameters:
  *      name:
  *          in: path
@@ -126,7 +198,14 @@ module.exports = model('Region', RegionSchema);
  *          description: Region Name.
  *          schema:
  *            type: string
- *            enum: [norte, nordeste, sudeste, centro-oeste, sul]               
+ *            enum: [norte, nordeste, sudeste, centro-oeste, sul]     
+ *      regionId:
+ *          in: path
+ *          name: regionId
+ *          required: true
+ *          description: Region ID.
+ *          schema:
+ *            type: string    
  *                    
  *                  
  *              

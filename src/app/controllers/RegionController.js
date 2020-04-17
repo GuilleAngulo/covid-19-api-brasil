@@ -48,7 +48,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error finding the region. Check if the ID is correct.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error finding the region.' });
         }
     },
 
@@ -87,7 +87,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(5004).send({ error: 'Internal Server Error. Error finding the region.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error finding the region.' });
         }
     },
 
@@ -99,7 +99,7 @@ module.exports = {
 
         if (regionExists) {
             console.log(`Region with name: ${name} already exists.`);
-            return res.status(403).json(regionExists);
+            return res.status(409).json(regionExists);
         }
 
         try {
@@ -118,45 +118,56 @@ module.exports = {
 
             await region.save();
 
+            region.createdAt = undefined;
+            region.updatedAt = undefined;
+            region.__v = undefined;
+
 
             return res.status(201).send({ region });
 
         } catch (error) {
             console.log('Error:',error);
-            return res.status(404).send({ error: 'Error creating new region.' });
+            return res.status(500).send({ error: 'Internal Server Error. Region creation failed.' });
         }
     },
 
     async update(req, res) {
         try {
-            const { name, description, states } = req.body;
+            let params = { ...req.body }
+        
+            for (let prop in params) if (!params[prop]) delete params[prop];
+                
+            const region = await Region.findByIdAndUpdate(req.params.regionId, params, 
+                { new: true, useFindAndModify: false });
 
-            const region = await Region.findByIdAndUpdate(req.params.regionId, { 
-                name, 
-                description
-            }, { new: true, useFindAndModify: false });
+            const { states } = req.body;
 
-            region.states = [];
-            await State.deleteMany({ region: region._id }, (error) => {
-                if (error) return res.status(404).send({ error: 'Error removing previous states.' });
-            });
+            if (states && Array.isArray(states) && states.length) {
+                region.states = [];
+                await State.deleteMany({ region: region._id }, (error) => {
+                    if (error) return res.status(404).send({ error: 'Error removing previous states.' });
+                });
 
-            await Promise.all(states.map(async state => {
-                const regionState = new State ({ ...state, region: region._id });
+                await Promise.all(states.map(async state => {
+                    const regionState = new State ({ ...state, region: region._id });
 
-                await regionState.save();
+                    await regionState.save();
 
-                region.states.push(regionState);
-            }));
+                    region.states.push(regionState);
+                }));
+            }
 
             await region.save();
 
+            region.createdAt = undefined;
+            region.updatedAt = undefined;
+            region.__v = undefined;
 
             return res.status(200).send({ region });
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error updating region.' });
+            return res.status(500).send({ error: 'Internal Server Error. Region update failed.' });
         }
     },
 
@@ -166,14 +177,14 @@ module.exports = {
             await Region.findByIdAndRemove(req.params.regionId, { useFindAndModify: false });
 
             await State.deleteMany({ region: req.params.regionId }, (error) => {
-                if (error) return res.status(404).send({ error: 'Error removing states.' });
+                if (error) return res.status(404).send({ error: 'Not found. Error finding the states associated.' });
             });
 
-            return res.status(200).send({ message: 'Region removed correctly.' });
+            return res.status(200).send({ message: 'Successful operation. State removed correctly.' });
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error removing the region.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error removing the region. ' });
         }
     },
 

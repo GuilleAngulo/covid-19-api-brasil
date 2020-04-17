@@ -150,7 +150,7 @@ module.exports = {
 
         } catch (error) {
             console.log('Error:', error);
-            return res.status(404).send({ error: 'Error finding the state. Check if the ID is correct.' });
+            return res.status(500).send({ error: 'Internal Server Error. Error removing the state.' });
         }
     },
 

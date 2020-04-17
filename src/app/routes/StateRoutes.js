@@ -31,7 +31,7 @@ module.exports = router;
  *  /states:
  *    get:
  *      tags: [States]
- *      summary: List State
+ *      summary: List States
  *      description: This resource returns the complete list of **states**.
  *      operationId: getStates
  *      responses:
@@ -119,6 +119,14 @@ module.exports = router;
  *            application/json:
  *              schema:
  *                 $ref: '#/components/responses/BadRequest'
+ *              example:
+ *                  statusCode: 400
+ *                  error: Bad Request
+ *                  message: \"code\" must be one of [AC, AL, AP, AM, BA, CE, DF, ES, GO, MA, MT, MS, MG, PA, PB, PR, PE, PI, RJ, RN, RS, RO, RR, SC, SP, SE, TO]
+ *                  validation: 
+ *                      source: params
+ *                      keys: 
+ *                          [code]
  *        "500":
  *          description: Internal Server Error. Error finding the state.
  *          content:
@@ -186,12 +194,12 @@ module.exports = router;
  *                  example: 
  *                      message: Successful operation. State removed correctly.
  * 
- *         "404":
- *            description: Not found. Error finding the state.
+ *         "500":
+ *            description: Internal Server Error. Error removing the state.
  *            content:
  *              application/json:
  *                  schema:
  *                      $ref: '#/components/responses/Error'
  *                  example: 
- *                      error: Not found. Error finding the state.    
+ *                      error: Internal Server Error. Error removing the state.
  */

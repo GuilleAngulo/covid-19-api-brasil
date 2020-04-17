@@ -34,9 +34,9 @@ module.exports = {
             authorization: Joi.string().required(),
         }).unknown(),
         [Segments.BODY]: Joi.object().keys({
-            name: Joi.string().required().min(1).insensitive(),
-            description: Joi.string().required().min(1).max(24),
-            states: Joi.array().required(),
+            name: Joi.string().min(1).insensitive(),
+            description: Joi.string().min(1).max(24),
+            states: Joi.array(),
         }),
     }),
 

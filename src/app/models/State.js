@@ -81,6 +81,7 @@ module.exports = model('State', StateSchema);
  *            type: string
  *            format: date-time
  *            description: Date of last official data update.
+ * 
  *            
  * 
  *    requests:
@@ -208,9 +209,14 @@ module.exports = model('State', StateSchema);
  *           deaths: 64
  *           officialUpdated: 2020-04-05T20:00:00.000Z
  * 
- * 
  *      StateSimple:
  *        type: object
+ *        required:
+ *          - _id
+ *          - name
+ *          - code
+ *          - region
+ *          - population
  *        properties:
  *          _id:
  *             type: string
@@ -245,6 +251,7 @@ module.exports = model('State', StateSchema);
  *           confirmed: 1394
  *           deaths: 64
  *           officialUpdated: 2020-04-05T20:00:00.000Z
+ *    
  *  
  *    securitySchemes:
  *      token:

@@ -35,7 +35,7 @@ module.exports = router;
  *            schema:
  *              $ref: '#/components/requests/UserRegister'
  *      responses:
- *        "200":
+ *        "201":
  *          description: Successful operation. User created. 
  *          content:
  *            application/json:
@@ -128,27 +128,19 @@ module.exports = router;
  *              $ref: '#/components/requests/UserForgotPassword'
  *      responses:
  *        "200":
- *          description: Successful operation. User created. 
+ *          description: Successful operation. Password recovery email sent successfully.
  *          content:
  *            application/json:
  *              schema:
  *                  $ref: '#/components/responses/Success'
  *              example: 
- *                  message: Password recovery email sent successfully.
+ *                  message: Successful operation. Password recovery email sent successfully.
  *        "400":
  *          description: Bad request. Request body incomplete or incorrect.
  *          content:
  *            application/json:
  *              schema:
  *                 $ref: '#/components/responses/BadRequest'
- *        "401":
- *          description: Unauthorized. Invalid password.
- *          content:
- *            application/json:
- *              schema:
- *                 $ref: '#/components/responses/Error'
- *              example: 
- *                  error: Unauthorized. Token invalid.
  *        "404":
  *          description: User not found. 
  *          content:
@@ -158,13 +150,21 @@ module.exports = router;
  *              example: 
  *                  error: User not found.
  *        "500":
- *          description: Internal Server Error. Authentication failed.
+ *          description: Internal Server Error. Sending recovering email failed.
  *          content:
  *            application/json:
  *              schema:
  *                 $ref: '#/components/responses/Error'
  *              example: 
- *                  error: Internal Server Error. Unable to reset passsword.
+ *                  error: Internal Server Error. Sending recovering email failed.
+ *        "503":
+ *          description: Service Unavailable. Can´t send Password recovery email.
+ *          content:
+ *            application/json:
+ *              schema:
+ *                 $ref: '#/components/responses/Error'
+ *              example: 
+ *                  error: Service Unavailable. Can´t send Password recovery email.
  * 
  * 
  * 
@@ -182,13 +182,13 @@ module.exports = router;
  *              $ref: '#/components/requests/UserResetPassword'
  *      responses:
  *        "200":
- *          description: Successful operation. User created. 
+ *          description: Successful operation. Password changed successfully. 
  *          content:
  *            application/json:
  *              schema:
  *                  $ref: '#/components/responses/Success'
  *              example: 
- *                  message: Password changed successfully.
+ *                  message: Successful operation. Password changed successfully.
  *        "400":
  *          description: Bad request. Request body incomplete or incorrect.
  *          content:
@@ -196,13 +196,13 @@ module.exports = router;
  *              schema:
  *                 $ref: '#/components/responses/BadRequest'
  *        "401":
- *          description: Unauthorized. Invalid password.
+ *          description: Unauthorized. Token invalid.
  *          content:
  *            application/json:
  *              schema:
  *                 $ref: '#/components/responses/Error'
  *              example: 
- *                  error: Unauthorized. Invalid password.
+ *                  error: Unauthorized. Token invalid.
  *        "404":
  *          description: User not found. 
  *          content:
@@ -212,11 +212,11 @@ module.exports = router;
  *              example: 
  *                  error: User not found.
  *        "500":
- *          description: Internal Server Error. Authentication failed.
+ *          description: Internal Server Error. Unable to reset passsword.
  *          content:
  *            application/json:
  *              schema:
  *                 $ref: '#/components/responses/Error'
  *              example: 
- *                  error: Internal Server Error. Authentication failed.
+ *                  error: Internal Server Error. Unable to reset passsword.
 */

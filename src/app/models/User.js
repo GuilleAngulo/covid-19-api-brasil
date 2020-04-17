@@ -147,9 +147,6 @@ module.exports = model('User', UserSchema);
  *          token: 8a8dcffa4978c43db054fe36da6ce6a217cb9d0c
  * 
  * 
- * 
- * 
- * 
  *    responses:
  *      UserResponse:
  *        type: object

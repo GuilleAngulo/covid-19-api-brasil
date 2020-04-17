@@ -102,7 +102,7 @@ module.exports = {
                 }
         
                 console.log(`Password recovery email sent to user with email: ${email}.`);
-                return res.status(200).send({ message: 'Password recovery email sent successfully.' });
+                return res.status(200).send({ message: 'Successful operation. Password recovery email sent successfully.' });
             });
 
 
@@ -135,7 +135,7 @@ module.exports = {
             await user.save();
 
             console.log(`Password changed for user with email: ${email}.`);
-            res.status(200).send({ message: 'Password changed successfully.' });
+            res.status(200).send({ message: 'Successful operation. Password changed successfully.' });
 
         } catch (err) {
             res.status(500).send({ error: 'Internal Server Error. Unable to reset passsword.' });
