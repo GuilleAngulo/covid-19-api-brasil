@@ -1,6 +1,7 @@
 const puppeteer = require('puppeteer');
 const path = require('path');
 const fs = require('fs');
+
 const { CronJob } = require('cron');
 
 const State = require('../models/State');
@@ -18,41 +19,12 @@ const LOG_PATH = path.resolve(__dirname, '..', '..', 'log');
 const logger = createUpdateLogger(LOG_PATH);
 
 module.exports = {
-    async index() {
-        console.log('Starting...');
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        try {
-            console.log('Launching page: ', URL);
-            await page.goto(URL);
-            //Delay to print data
-            await page.waitFor(5000);
-            const updateAt = await getUpdateAt(page, UPDATE_XPATH);
-            const storedUpdateAt = await getStoredUpdate();
-            console.log('Page update:', updateAt);
-            console.log('Database update:', storedUpdateAt);
-            if (updateAt && updateAt > storedUpdateAt) {
-                logger.info('Database outdated. Downloading new data ...');
-                await downloadCSVFile(page, DONWLOAD_BUTTON_XPATH);
-                const data = csvToJSON(updateAt, TEMP_PATH);
-                if (Array.isArray(data) && data.length) 
-                    await updateDatabase(data);
-            } else {
-                logger.info('Database up to date.');
-            }
-        } catch (error) {
-            logger.error(error);
-        }
-        await browser.close();
-        console.log('Browser closed');
-    },
-
     cron() {
         //Scheduled for everyday 18:00 and 00:00
         const job = new CronJob('00 18,00 * * *',
             async () => {
                 logger.info('Starting update cron.');
-                await module.exports.index();
+                await index();
                 logger.info('Cron job finished.');
             }, 
             null,
@@ -62,6 +34,35 @@ module.exports = {
         //console.log(job.nextDates(5).map(date => date.toString()))  
         job.start();
     },
+}
+
+async function index() {
+    console.log('Starting...');
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    try {
+        console.log('Launching page: ', URL);
+        await page.goto(URL);
+        //Delay to print data
+        await page.waitFor(5000);
+        const updateAt = await getUpdateAt(page, UPDATE_XPATH);
+        const storedUpdateAt = await getStoredUpdate();
+        console.log('Page update:', updateAt);
+        console.log('Database update:', storedUpdateAt);
+        if (updateAt && updateAt > storedUpdateAt) {
+            logger.info('Database outdated. Downloading new data ...');
+            await downloadCSVFile(page, DONWLOAD_BUTTON_XPATH);
+            const data = csvToJSON(updateAt, TEMP_PATH);
+            if (Array.isArray(data) && data.length) 
+                await updateDatabase(data);
+        } else {
+            logger.info('Database up to date.');
+        }
+    } catch (error) {
+        logger.error(error);
+    }
+    await browser.close();
+    console.log('Browser closed');
 }
 
     function csvToJSON(update, directoryPath) {
@@ -74,10 +75,11 @@ module.exports = {
             const lines = file.toString().split("\r\n");
             // Check if header has correct format
             const header = lines[0].split(";");
-            if (header[1] === DOCUMENT_HEADER_TEXT.UF && header[4] === DOCUMENT_HEADER_TEXT.CONFIRMED && header[6] === DOCUMENT_HEADER_TEXT.DEATHS) {
+            console.log(header[1], header[10], header[12]);
+            if (header[1] === DOCUMENT_HEADER_TEXT.UF && header[10] === DOCUMENT_HEADER_TEXT.CONFIRMED && header[12] === DOCUMENT_HEADER_TEXT.DEATHS) {
                 for (let i = 1; i < lines.length; i++) {
                     const currentline = lines[i].split(";");
-                    if (currentline[2] === date) {
+                    if (currentline[7] === date) {
                         result.push({
                             "code": currentline[1], 
                             "confirmed": currentline[4], 
@@ -142,7 +144,7 @@ module.exports = {
 
     async function getStoredUpdate() {
         console.log('Getting stored update time...');
-        await State.aggregate(
+        const date = await State.aggregate(
             [
                 { 
                     $group: {
@@ -150,15 +152,12 @@ module.exports = {
                         officialUpdated:  { $first: "$officialUpdated" },
                     }   
                 }
-            ],
-            (error, data) => {
-                if (error) {
-                    logger.error('Error retrieving data from database:', error);
-                    console.log(error);
-                    return;
-                }
-                return data[0].officialUpdated;
-            }
-        );
+            ]);
+
+        return date[0].officialUpdated;;
     }
 
+
+    const fecha = new Date(2020,05,14);
+    const resultado = xlsxToJSON(fecha ,TEMP_PATH);
+    console.log(resultado);

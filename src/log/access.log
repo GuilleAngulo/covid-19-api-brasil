@@ -2266,3 +2266,5 @@ d54a698f-babf-449a-893a-6bd133383d49 [Fri, 17 Apr 2020 23:06:31 GMT]" GET /docs/
 48faf420-45c8-474f-9dce-9fdfbbf8fbb4 [Fri, 17 Apr 2020 23:10:16 GMT]" GET /docs/swagger-ui-bundle.js" 304 6.551 ms
 97a953a6-021d-4c36-aa77-f148ac2bc0be [Fri, 17 Apr 2020 23:10:16 GMT]" GET /docs/swagger-ui-standalone-preset.js" 304 6.364 ms
 907da717-f989-4624-af0a-be988d6ce52a [Fri, 17 Apr 2020 23:10:52 GMT]" POST /users/authenticate" 200 262.161 ms
+fb499f0f-0d5d-4d50-a9a5-851944af855f [Tue, 16 Jun 2020 17:42:26 GMT]" GET /states/" 200 357.096 ms
+ec05df8b-a2aa-4fe1-abd7-712b583204b6 [Tue, 16 Jun 2020 17:42:31 GMT]" GET /states/" 200 351.037 ms

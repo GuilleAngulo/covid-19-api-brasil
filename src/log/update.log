@@ -153,3 +153,125 @@
     at Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
     at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:17)
 [2020-04-16T18:00:22.070] [INFO] default - Cron job finished.
+[2020-06-16T14:23:00.013] [INFO] default - Starting update cron.
+[2020-06-16T14:23:12.087] [ERROR] default - Error getting update time: TypeError: Cannot read property 'getProperty' of undefined
+    at getUpdateAt (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:136:35)
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+    at async Object.index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:30:30)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:56:17)
+[2020-06-16T14:23:12.268] [INFO] default - Database up to date.
+[2020-06-16T14:23:12.630] [INFO] default - Cron job finished.
+[2020-06-16T14:37:00.015] [INFO] default - Starting update cron.
+[2020-06-16T14:37:11.004] [INFO] default - Database up to date.
+[2020-06-16T14:37:11.341] [INFO] default - Cron job finished.
+[2020-06-16T14:45:00.009] [INFO] default - Starting update cron.
+[2020-06-16T14:45:11.633] [INFO] default - Database up to date.
+[2020-06-16T14:45:11.950] [INFO] default - Cron job finished.
+[2020-06-16T14:47:00.015] [INFO] default - Starting update cron.
+[2020-06-16T14:47:09.689] [INFO] default - Database up to date.
+[2020-06-16T14:47:10.116] [INFO] default - Cron job finished.
+[2020-06-16T14:55:00.007] [INFO] default - Starting update cron.
+[2020-06-16T14:55:10.910] [INFO] default - Database up to date.
+[2020-06-16T14:55:11.220] [INFO] default - Cron job finished.
+[2020-06-16T14:58:00.028] [INFO] default - Starting update cron.
+[2020-06-16T14:58:09.055] [INFO] default - Database up to date.
+[2020-06-16T14:58:09.397] [INFO] default - Cron job finished.
+[2020-06-16T15:01:00.009] [INFO] default - Starting update cron.
+[2020-06-16T15:01:09.478] [INFO] default - Database up to date.
+[2020-06-16T15:01:09.781] [INFO] default - Cron job finished.
+[2020-06-16T15:03:00.008] [INFO] default - Starting update cron.
+[2020-06-16T15:03:08.381] [INFO] default - Database up to date.
+[2020-06-16T15:03:08.705] [INFO] default - Cron job finished.
+[2020-06-16T15:14:00.010] [INFO] default - Starting update cron.
+[2020-06-16T15:14:11.499] [INFO] default - Database up to date.
+[2020-06-16T15:14:11.814] [INFO] default - Cron job finished.
+[2020-06-16T15:17:00.009] [INFO] default - Starting update cron.
+[2020-06-16T15:17:08.566] [INFO] default - Database up to date.
+[2020-06-16T15:17:08.884] [INFO] default - Cron job finished.
+[2020-06-16T15:22:00.009] [INFO] default - Starting update cron.
+[2020-06-16T15:22:08.401] [INFO] default - Database up to date.
+[2020-06-16T15:22:08.715] [INFO] default - Cron job finished.
+[2020-06-16T15:23:00.010] [INFO] default - Starting update cron.
+[2020-06-16T15:23:10.279] [INFO] default - Database up to date.
+[2020-06-16T15:23:10.611] [INFO] default - Cron job finished.
+[2020-06-16T15:26:00.009] [INFO] default - Starting update cron.
+[2020-06-16T15:26:08.690] [INFO] default - Database outdated. Downloading new data ...
+[2020-06-16T15:26:09.331] [ERROR] default - TypeError: Cannot read property 'click' of undefined
+    at downloadCSVFile (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:127:22)
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+    at async index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:54:13)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:27:17)
+[2020-06-16T15:26:09.650] [INFO] default - Cron job finished.
+[2020-06-16T15:34:00.011] [INFO] default - Starting update cron.
+[2020-06-16T15:34:09.277] [INFO] default - Database outdated. Downloading new data ...
+[2020-06-16T15:34:10.531] [ERROR] default - TypeError: Cannot read property 'click' of undefined
+    at downloadCSVFile (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:128:22)
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+    at async index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:13)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:27:17)
+[2020-06-16T15:34:10.857] [INFO] default - Cron job finished.
+[2020-06-16T15:39:00.010] [INFO] default - Starting update cron.
+[2020-06-16T15:39:11.233] [INFO] default - Database outdated. Downloading new data ...
+[2020-06-16T15:39:11.240] [ERROR] default - TypeError: Cannot read property 'click' of undefined
+    at downloadCSVFile (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:128:22)
+    at processTicksAndRejections (internal/process/task_queues.js:85:5)
+    at async index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:54:13)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:27:17)
+[2020-06-16T15:39:11.538] [INFO] default - Cron job finished.
+[2020-06-16T15:42:00.009] [INFO] default - Starting update cron.
+[2020-06-16T15:42:09.244] [INFO] default - Database up to date.
+[2020-06-16T15:42:09.575] [INFO] default - Cron job finished.
+[2020-06-16T15:43:00.010] [INFO] default - Starting update cron.
+[2020-06-16T15:43:09.316] [INFO] default - Database outdated. Downloading new data ...
+[2020-06-16T15:43:15.979] [ERROR] default - Error parsing CSV file: Error: Header fields does not match the pattern.
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:91:23)
+    at index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:26)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:27:17)
+[2020-06-16T15:43:16.303] [INFO] default - Cron job finished.
+[2020-06-16T15:53:00.010] [INFO] default - Starting update cron.
+[2020-06-16T15:53:11.400] [INFO] default - Database up to date.
+[2020-06-16T15:53:11.709] [INFO] default - Cron job finished.
+[2020-06-16T15:57:00.008] [INFO] default - Starting update cron.
+[2020-06-16T15:57:09.071] [INFO] default - Database up to date.
+[2020-06-16T15:57:09.371] [INFO] default - Cron job finished.
+[2020-06-16T15:59:00.013] [INFO] default - Starting update cron.
+[2020-06-16T15:59:07.348] [INFO] default - Database outdated. Downloading new data ...
+[2020-06-16T15:59:13.935] [ERROR] default - Error parsing CSV file: Error: Header fields does not match the pattern.
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:92:23)
+    at index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:26)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:27:17)
+[2020-06-16T15:59:14.309] [INFO] default - Cron job finished.
+[2020-06-16T16:01:00.007] [INFO] default - Starting update cron.
+[2020-06-16T16:01:09.225] [INFO] default - Database outdated. Downloading new data ...
+[2020-06-16T16:01:15.814] [ERROR] default - Error parsing CSV file: Error: Header fields does not match the pattern.
+    at csvToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:92:23)
+    at index (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:55:26)
+    at async CronJob.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:27:17)
+[2020-06-16T16:01:16.122] [INFO] default - Cron job finished.
+[2020-06-16T17:17:39.709] [ERROR] default - Error parsing CSV file: ReferenceError: XLSX is not defined
+    at xlsxToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:113:30)
+    at Object.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:205:23)
+    at Module._compile (internal/modules/cjs/loader.js:868:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:879:10)
+    at Module.load (internal/modules/cjs/loader.js:731:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:644:12)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:931:10)
+    at internal/main/run_main_module.js:17:11
+[2020-06-16T17:17:59.950] [ERROR] default - Error parsing CSV file: TypeError: Cannot read property '0' of undefined
+    at xlsxToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:119:41)
+    at Object.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:205:23)
+    at Module._compile (internal/modules/cjs/loader.js:868:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:879:10)
+    at Module.load (internal/modules/cjs/loader.js:731:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:644:12)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:931:10)
+    at internal/main/run_main_module.js:17:11
+[2020-06-16T17:21:10.770] [ERROR] default - Error parsing CSV file: TypeError: Cannot read property '0' of undefined
+    at xlsxToJSON (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:119:41)
+    at Object.<anonymous> (D:\Guillermo\Informatica\covid-19-api\src\app\services\UpdateService.js:205:23)
+    at Module._compile (internal/modules/cjs/loader.js:868:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:879:10)
+    at Module.load (internal/modules/cjs/loader.js:731:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:644:12)
+    at Function.Module.runMain (internal/modules/cjs/loader.js:931:10)
+    at internal/main/run_main_module.js:17:11

@@ -136,6 +136,8 @@ module.exports = {
             let params = { ...req.body }
         
             for (let prop in params) if (!params[prop]) delete params[prop];
+
+            delete params[states]; 
                 
             const region = await Region.findByIdAndUpdate(req.params.regionId, params, 
                 { new: true, useFindAndModify: false });
