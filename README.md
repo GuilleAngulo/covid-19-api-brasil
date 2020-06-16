@@ -14,6 +14,8 @@ When the cron starts, using [Pupeeter](https://github.com/puppeteer/puppeteer) i
 ## API Documentation - Swagger
 It is used [Swagger](https://swagger.io/) to make a proper documentation of the API and capable of allow live tests. It is accessible at **http://localhost:3000/docs** in case you run the project at your computer.
 
+<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/Swagger1.png" width="900">
+<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/Swagger2.png" width="900">
 
 ### Get State
 
