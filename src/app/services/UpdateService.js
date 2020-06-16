@@ -156,8 +156,3 @@ async function index() {
 
         return date[0].officialUpdated;;
     }
-
-
-    const fecha = new Date(2020,05,14);
-    const resultado = xlsxToJSON(fecha ,TEMP_PATH);
-    console.log(resultado);
