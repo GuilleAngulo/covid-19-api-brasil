@@ -7,8 +7,8 @@ One of the main parts of the project is the automation for having the database u
 
 When the cron starts, using [Pupeeter](https://github.com/puppeteer/puppeteer) in order to navigate the site as a browser, it is examinate the last update time at https://covid.saude.gov.br/. If the time isn´t earlier than the stored update time at the database then nothing else is triggered, everything is up to date. Otherwise, if the update time is more recent than the stored time, the next step is triggered: The CSV file is downloaded (at a temporal folder) and it is parsed into an array of JSON objects to override the data stored at the database.
 
-<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/pupeeter.png" width="800">
-*With Pupeeter the updated time is checked and if the data is not up to the date the CSV button is clicked to download the file *
+<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/pupeeter.png" width="900">
+*With Pupeeter the updated time is checked and if the data is not up to the date the CSV button is clicked to download the file*
 
 
 
