@@ -42,9 +42,11 @@ The POST / PUT / DELETE methods of the API are reserved to registered users. To 
 - **Update Region by ID**. Update state info by its ID. Valid only for registered users with JWT.
 - **Delete State**. Removes the region by ID. Valid only for registered users with JWT.
 
-### Get State
+## The main two resources are:
 
-Finds state by UF code
+### Get State by Code (UF)
+
+Finds and returns a state by its code (UF code).
 
 ```http
 GET /state/:code
@@ -58,14 +60,13 @@ Responses
 
 ```javascript
 {
-  "_id": string,
   "name": string,
   "code": string,
+  "region": {
+     "_id": string($uuid),
+    "description": string
+  },
   "population": number,
-  "region": string,
-  "createdAt": date,
-  "updatedAt": date,
-  "__v": number,
   "confirmed": number,
   "deaths": number,
   "officialUpdated": date
