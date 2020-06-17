@@ -94,7 +94,7 @@ module.exports = router;
  *  /regions/{name}:
  *    get:
  *      tags: [Regions]
- *      summary: Get State by Name
+ *      summary: Get Region by Name
  *      description: This resource **finds** and returns a **region** by its `name`.
  *      operationId: getStateByCode
  *      parameters:
