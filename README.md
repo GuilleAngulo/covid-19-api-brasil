@@ -14,8 +14,7 @@ When the cron starts, using [Pupeeter](https://github.com/puppeteer/puppeteer) i
 ## API Documentation - Swagger
 It is used [Swagger](https://swagger.io/) to make a proper documentation of the API and capable of allow live tests. It is accessible at **http://localhost:3000/docs** in case you run the project at your computer.
 
-<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/Swagger1.png" width="400">
-<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/Swagger2.png" width="400">
+<img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/Swagger1.png" width="450"><img src="https://github.com/GuilleAngulo/covid-19-api-brasil/blob/master/src/resources/Swagger2.png" width="450">
 
 ## Validation and Testing
 The project uses [Celebrate](https://github.com/arb/celebrate) to implement validators at a middleware in order to check that the inputs of the requests are valid (at *src/app/validators*). Also it is used [Jest](https://jestjs.io/) to make both unit testing and integration (with database) testing using mocks.
