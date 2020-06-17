@@ -22,10 +22,11 @@ The project uses [Celebrate](https://github.com/arb/celebrate) to implement vali
 ## API | Main
 
 ### User
-The POST / DELETE methods of the API are reserved to registered users. To do this, is mandatory to register and have a valid [JWT Token](https://jwt.io/). It is included also such actions as:
-- Authenticate. To receive a new valid token, because it expires by default in one day.
-- Forgot Password. To activate a reset password action. One new ResetToken is sent to the mail of the user valid for 10 minutes.
-- Reset Password. To reset the password with the ResetToken received by mail.
+The POST / DELETE methods of the API are reserved to registered users. To do this, is mandatory to register and have a valid [JWT Token](https://jwt.io/). It is included such actions as:
+- **Register**. To register in the database and receive a valid JWT.
+- **Authenticate**. To receive a new valid token, because it expires by default in one day.
+- **Forgot Password**. To activate a reset password action. One new ResetToken is sent to the mail of the user valid for 10 minutes.
+- **Reset Password**. To reset the password with the ResetToken received by mail.
 
 
 ### Get State
