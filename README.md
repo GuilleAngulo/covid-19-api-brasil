@@ -49,7 +49,7 @@ The POST / PUT / DELETE methods of the API are reserved to registered users. To 
 Finds and returns a state by its code (UF code).
 
 ```http
-GET /state/:code
+GET /states/:code
 ```
 
 | Parameter | In | Type | Description |
@@ -75,8 +75,6 @@ Responses
 
 | Status Code | Description |
 | :--- | :--- |
-| 200 | `OK` | 
-| 201 | `CREATED` |
-| 400 | `BAD REQUEST` |
-| 404 | `NOT FOUND` |
-| 500 | `INTERNAL SERVER ERROR` |
+| 200 | `Successful operation. State listed.` | 
+| 400 | `Bad request. Wrong State code.` |
+| 500 | `Internal Server Error. Error finding the state.` |
