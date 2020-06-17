@@ -78,3 +78,48 @@ Responses
 | 200 | `Successful operation. State listed.` | 
 | 400 | `Bad request. Wrong State code.` |
 | 500 | `Internal Server Error. Error finding the state.` |
+
+### Get Region by Name
+
+Finds and returns a region by its name (norte, nordeste, sudeste, centro-oeste, sul)
+
+```http
+GET /region/:name
+```
+
+| Parameter | In | Type | Description |
+| :--- | :--- | :--- | :--- |
+| `name` | `path` | `string` | **Required**. Name of brazilian region |
+
+Responses
+
+```javascript
+{
+   "region": {
+    "_id": string($uuid),
+    "name": string,
+    "description": string,
+    "confirmed": number,
+    "deaths": number,
+    "states": [
+      {
+        "_id": string($uuid),
+        "name": string,
+        "code": string,
+        "population": number,
+        "confirmed": number,
+        "deaths": number,
+        "officialUpdated": date
+      },
+      
+      { ... }
+    ]
+  }
+}
+```
+
+| Status Code | Description |
+| :--- | :--- |
+| 200 | `Successful operation. Region listed.` | 
+| 400 | `Bad request. Wrong State code.` |
+| 500 | `Internal Server Error. Error finding the state.` |
