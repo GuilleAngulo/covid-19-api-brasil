@@ -20,17 +20,27 @@ It is used [Swagger](https://swagger.io/) to make a proper documentation of the 
 The project uses [Celebrate](https://github.com/arb/celebrate) to implement validators at a middleware in order to check that the inputs of the requests are valid (at *src/app/validators*). Also it is used [Jest](https://jestjs.io/) to make both unit testing and integration (with database) testing using mocks.
 
 ## 🗺️ API | Main
+The POST / PUT / DELETE methods of the API are reserved to registered users. To do this, is mandatory to register and have a valid [JWT Token](https://jwt.io/). 
 
 ### 👤 User
-The POST / DELETE methods of the API are reserved to registered users. To do this, is mandatory to register and have a valid [JWT Token](https://jwt.io/). It is included such actions as:
 - **Register**. To register in the database and receive a valid JWT.
 - **Authenticate**. To receive a new valid token, because it expires by default in one day.
 - **Forgot Password**. To activate a reset password action. One new ResetToken is sent to the mail of the user valid for 10 minutes.
 - **Reset Password**. To reset the password with the ResetToken received by mail.
 
 ## 🏙️ State
+- **List States**. Lists all states information with confirmed and deaths for each state.
+- **Create States**. Valid only for registered users with JWT.
+- **Get State by Code (UF)**. List a state information by its UF code
+- **Update State by Code (UF)**. Update state info by its UF code. Valid only for registered users with JWT.
+- **Delete State**. Removes the state by ID. Valid only for registered users with JWT.
 
 ## ®️ Region
+- **List Region**. Lists all region information. A region is an agroupation of states.
+- **Create Region**. Valid only for registered users with JWT.
+- **Get Region by Name**. List Region information by its name (norte, nordeste, sudeste, centro-oeste, sul)
+- **Update Region by ID**. Update state info by its ID. Valid only for registered users with JWT.
+- **Delete State**. Removes the region by ID. Valid only for registered users with JWT.
 
 ### Get State
 
