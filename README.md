@@ -19,8 +19,13 @@ It is used [Swagger](https://swagger.io/) to make a proper documentation of the 
 ## Validation and Testing | Celebrate and Jest
 The project uses [Celebrate](https://github.com/arb/celebrate) to implement validators at a middleware in order to check that the inputs of the requests are valid (at *src/app/validators*). Also it is used [Jest](https://jestjs.io/) to make both unit testing and integration (with database) testing using mocks.
 
-## API | Main resources
+## API | Main
 
+### User
+The POST / DELETE methods of the API are reserved to registered users. To do this, is mandatory to register and have a valid [JWT Token](https://jwt.io/). It is included also such actions as:
+- Authenticate. To receive a new valid token, because it expires by default in one day.
+- Forgot Password. To activate a reset password action. One new ResetToken is sent to the mail of the user valid for 10 minutes.
+- Reset Password. To reset the password with the ResetToken received by mail.
 
 
 ### Get State
