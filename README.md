@@ -121,5 +121,6 @@ Responses
 | Status Code | Description |
 | :--- | :--- |
 | 200 | `Successful operation. Region listed.` | 
-| 400 | `Bad request. Wrong State code.` |
-| 500 | `Internal Server Error. Error finding the state.` |
+| 400 | `Bad request. Wrong Region Name.` |
+| 404 | `Region not found.` |
+| 500 | `Internal Server Error. Error finding the region.` |
