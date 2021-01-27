@@ -3,7 +3,7 @@
 This project was created to have an updated API providing the data of COVID-19 cases in Brazil, according to the official site of the [Ministry of Health](http://covid.saude.gov.br/). The project has been developed with Node.js and MongoDB and provides a REST API serving updated data of confirmed and deaths cases. In order retrieve the data from the Ministry web it is used a scheduled cron.
 
 ## 🔄 Retrieving official data | Update Service cron
-One of the main parts of the project is the automation for having the database updated. The code is under */src/app/services/UpdateService.js*: The cron is scheduled to run everyday at 18:00h and 00:00h: the data of the official site is commonly updated around 18:00h, and in case this update delays for any reason it will be updated at midnight.
+One of the main parts of the project is the automation for having the database updated. The code is at */src/app/services/UpdateService.js*: The cron is scheduled to run everyday at 18:00h and 00:00h: the data of the official site is commonly updated around 18:00h, and in case this update delays for any reason it will be updated at midnight.
 
 When the cron starts, using [Pupeeter](https://github.com/puppeteer/puppeteer) in order to navigate the site as a browser, it is examinate the last update time at https://covid.saude.gov.br/. If the time isn´t more recent than the stored update time at the database then nothing else is triggered, everything is up to date. Otherwise, if the update time is more recent than the stored time, the next step is triggered: The CSV file is downloaded (at a temporal folder) and it is parsed into an array of JSON objects to override the data stored at the database.
 
